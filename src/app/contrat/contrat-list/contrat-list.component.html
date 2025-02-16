@@ -1,0 +1,17 @@
+<p>contrat-list works!</p>
+
+
+<div *ngIf="contrats.length > 0">
+    <h2>Liste des contrats</h2>
+    <ul>
+      <li *ngFor="let contrat of contrats">
+        {{ contrat.Specialite }} <!-- Remplacez 'name' par le bon attribut -->
+        {{ contrat.montantContrat }}
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="contrats.length === 0">
+    <p>Aucun contrat trouvé</p>
+  </div>
+  
