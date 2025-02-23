@@ -1,0 +1,67 @@
+<!-- Ajout de Font Awesome pour les icônes -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<!-- Affichage des ressources -->
+<div class="resources-container" *ngIf="ressources.length > 0">
+  <div class="resource-card" *ngFor="let ressource of ressources">
+    <div class="resource-info">
+      <h3>{{ ressource.titre }}</h3> <!-- Afficher le titre -->
+      <p><strong>Format:</strong> {{ ressource.format }}</p>
+      <p><strong>URL:</strong> <a href="{{ ressource.url }}" target="_blank">{{ ressource.url }}</a></p>
+      <p><strong>Type:</strong> {{ ressource.type }}</p>
+    </div>
+    <div class="resource-actions">
+      <button class="btn-edit" (click)="editRessource(ressource)">
+        <i class="fas fa-edit"></i> <!-- Icône de modification -->
+      </button>
+      <button class="btn-delete" (click)="deleteRessource(ressource)">
+        <i class="fas fa-trash-alt"></i> <!-- Icône de suppression -->
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Message quand il n'y a pas de ressources -->
+<div *ngIf="ressources.length === 0" class="no-resources">
+  <p>Aucune ressource disponible.</p>
+</div>
+
+<!-- Ajouter une ressource -->
+<div class="add-resource">
+  <button (click)="toggleForm()">
+    <i class="fas fa-plus"></i> Ajouter une ressource <!-- Icône d'ajout -->
+  </button>
+</div>
+
+<!-- Formulaire d'ajout de ressource -->
+<div *ngIf="formVisible" class="add-resource-form">
+  <h3>Ajouter une ressource</h3>
+  <form (ngSubmit)="addRessource()">
+    <div class="form-group">
+      <label for="titre">Titre :</label>
+      <input type="text" id="titre" [(ngModel)]="newRessource.titre" name="titre" required />
+    </div>
+    <div class="form-group">
+      <label for="url">URL :</label>
+      <input type="url" id="url" [(ngModel)]="newRessource.url" name="url" required />
+    </div>
+    <div class="form-group">
+      <label for="format">Format :</label>
+      <input type="text" id="format" [(ngModel)]="newRessource.format" name="format" required />
+    </div>
+    <div class="form-group">
+      <label for="type">Type :</label>
+      <select id="type" [(ngModel)]="newRessource.type" name="type" required>
+        <option value="PDF">PDF</option>
+        <option value="Video">Vidéo</option>
+        <option value="Article">Article</option>
+      </select>
+    </div>
+    <button type="submit" class="btn-add">
+      <i class="fas fa-plus"></i> Ajouter
+    </button>
+  </form>
+  <br>
+  <br>
+  <br><br>
+</div>

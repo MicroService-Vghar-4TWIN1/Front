@@ -1,0 +1,35 @@
+/* Footer Styles */
+footer {
+    background-color: #353535;
+    color: #f1f1f1;
+    text-align: left;
+    padding: 20px 50px; /* Réduit un peu le padding pour un alignement plus à gauche */
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  footer p {
+    font-size: 1rem;
+    margin: 0;
+  }
+  
+  .social-icons {
+    margin-top: 10px;
+    margin-left: 0; /* Réduit la marge pour aligner à gauche */
+  }
+  
+  .social-icon {
+    color: #f1f1f1;
+    margin-right: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    color: #ff8a00;
+  }
+  
