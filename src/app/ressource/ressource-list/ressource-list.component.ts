@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RessourceService } from './../../service/ressource.service';
+import { RessourceService, Type, Ressource } from '../../service/ressource.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ressource-list',
@@ -7,67 +8,52 @@ import { RessourceService } from './../../service/ressource.service';
   styleUrls: ['./ressource-list.component.css']
 })
 export class RessourceListComponent implements OnInit {
-  ressources: any[] = [];
-  formVisible: boolean = false; // Contrôle la visibilité du formulaire
-  newRessource = {
+  ressources: Ressource[] = [];
+  formVisible: boolean = false;
+  editMode: boolean = false;
+  types = Object.values(Type);
+  stats: Map<string, number> = new Map();
+
+  currentRessource: Ressource = {
     titre: '',
     url: '',
-    format: '',
-    type: ''
+    pdf: '',
+    description: '',
+    type: Type.Cours
   };
 
-  constructor(private ressourceService: RessourceService) {}
+  constructor(private ressourceService: RessourceService, private router: Router) {}
 
   ngOnInit() {
-    // Chargement initial des ressources depuis le backend
-    this.ressourceService.getRessources().subscribe(data => {
-      this.ressources = data;
+    this.loadRessources();
+    this.loadStats();
+  }
+
+  loadRessources() {
+    this.ressourceService.getRessources().subscribe({
+      next: (data) => this.ressources = data,
+      error: (err) => console.error('Erreur lors du chargement des ressources', err)
     });
   }
 
-  // Méthode pour ajouter une ressource
-  addRessource() {
-    // Validation des champs nécessaires
-    if (this.newRessource.titre && this.newRessource.url && this.newRessource.type) {
-      this.ressourceService.addRessource(this.newRessource).subscribe((data) => {
-        this.ressources.push(data); // Ajout de la ressource à la liste après ajout dans le backend
-        this.resetForm(); // Réinitialiser le formulaire
-      }, error => {
-        console.error('Erreur lors de l\'ajout de la ressource', error);
-      });
-    } else {
-      console.warn('Veuillez remplir tous les champs requis.');
-    }
+  loadStats() {
+    this.ressourceService.getStats().subscribe({
+      next: (data) => this.stats = new Map(Object.entries(data)),
+      error: (err) => console.error('Erreur lors du chargement des statistiques', err)
+    });
   }
 
-  // Méthode pour réinitialiser le formulaire
-  resetForm() {
-    this.newRessource = { titre: '', url: '', format: '', type: '' };
-    this.formVisible = false; // Cacher le formulaire après ajout
-  }
-
-  // Toggle la visibilité du formulaire d'ajout
-  toggleForm() {
-    this.formVisible = !this.formVisible;
-  }
-
-  // Méthode pour modifier une ressource
-  editRessource(ressource: any) {
-    console.log('Modifier ressource', ressource);
-    // Logique de modification, peut-être réafficher le formulaire avec les valeurs actuelles
-  }
-
-  // Méthode pour supprimer une ressource
-  deleteRessource(ressource: any) {
-    const index = this.ressources.indexOf(ressource);
-    if (index !== -1) {
-      this.ressources.splice(index, 1);
-      // Appel de l'API pour supprimer la ressource dans le backend
-      this.ressourceService.deleteRessource(ressource.id).subscribe(() => {
-        console.log('Ressource supprimée');
-      }, error => {
-        console.error('Erreur lors de la suppression de la ressource', error);
+  deleteRessource(id: number | undefined) {
+    if (id && confirm('Êtes-vous sûr de vouloir supprimer cette ressource ?')) {
+      this.ressourceService.deleteRessource(id).subscribe({
+        next: () => {
+          this.ressources = this.ressources.filter(r => r.idRessource !== id);
+          this.loadStats();
+        },
+        error: (err) => console.error('Erreur lors de la suppression de la ressource', err)
       });
     }
   }
+
+ 
 }

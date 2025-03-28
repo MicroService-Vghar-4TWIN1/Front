@@ -13,6 +13,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { FooterComponent } from './footer/footer.component';
 import { RessourceModule } from './ressource/ressource.module';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { FormsModule } from '@angular/forms';
     FormationModule,
     UniversiteModule,
     RessourceModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule
 
   ],
   providers: [],
