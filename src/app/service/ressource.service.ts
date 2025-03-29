@@ -33,9 +33,11 @@ export class RessourceService {
     return this.http.get<Ressource>(`${this.apiUrl}/${id}`);
   }
 
-  addRessource(ressource: Ressource): Observable<Ressource> {
-    return this.http.post<Ressource>(this.apiUrl, ressource);
+  addRessource(formData: FormData): Observable<any> {
+    return this.http.post(this.apiUrl, formData);
   }
+  
+  
 
   updateRessource(ressource: Ressource): Observable<Ressource> {
     return this.http.put<Ressource>(this.apiUrl, ressource);

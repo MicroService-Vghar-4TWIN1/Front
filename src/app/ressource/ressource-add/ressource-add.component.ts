@@ -21,7 +21,6 @@ export class RessourceAddComponent {
     this.ressourceForm = this.fb.group({
       titre: ['', Validators.required],
       url: ['', Validators.pattern('https?://.+')],
-      pdf: [''],
       description: ['', Validators.required],
       type: ['', Validators.required]
     });
@@ -39,24 +38,24 @@ export class RessourceAddComponent {
 
   onSubmit(): void {
     if (this.ressourceForm.valid) {
-      const formData = new FormData();
       const ressourceData = this.ressourceForm.value;
+      const formData = new FormData();
 
-      // Ajouter les champs du formulaire
-      formData.append('titre', ressourceData.titre);
-      formData.append('url', ressourceData.url);
-      formData.append('description', ressourceData.description);
-      formData.append('type', ressourceData.type);
+      // Convertir l'objet ressource en JSON dans un Blob
+      formData.append('ressource', new Blob([JSON.stringify(ressourceData)], {
+        type: 'application/json'
+      }));
 
       // Ajouter le fichier PDF s'il existe
       if (this.selectedFile) {
-        formData.append('pdf', this.selectedFile, this.selectedFile.name);
+        formData.append('file', this.selectedFile, this.selectedFile.name);
       }
 
-      this.ressourceService.addRessource(ressourceData).subscribe({
+      // ✅ Envoyer le FormData (et non ressourceData simple)
+      this.ressourceService.addRessource(formData).subscribe({
         next: (response) => {
           console.log('Ressource ajoutée avec succès:', response);
-          this.router.navigate(['/ressources']); // Redirection après succès
+          this.router.navigate(['/ressources']);
         },
         error: (error) => {
           console.error('Erreur lors de l\'ajout de la ressource:', error);
@@ -64,7 +63,6 @@ export class RessourceAddComponent {
         }
       });
     } else {
-      // Marquer tous les champs comme touchés pour afficher les erreurs
       this.markFormGroupTouched(this.ressourceForm);
     }
   }
@@ -77,6 +75,7 @@ export class RessourceAddComponent {
       }
     });
   }
+
   cancel(): void {
     this.router.navigate(['/ressources']);
   }
