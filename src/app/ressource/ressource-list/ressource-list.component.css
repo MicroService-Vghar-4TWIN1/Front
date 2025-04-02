@@ -1,0 +1,158 @@
+/* Centre le tableau dans la page */
+.container {
+  max-width: 85%;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+/* Fond de la page */
+body {
+  background-color: #f7f7f7;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* En-têtes du tableau */
+.table thead {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+  padding: 20px;
+  font-size: 16px;
+}
+
+/* Style de lignes alternées pour le tableau */
+.table-striped tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.table-striped tbody tr:nth-child(even) {
+  background-color: #e9ecef;
+}
+
+/* Survol des lignes */
+.table-striped tbody tr:hover {
+  background-color: #d1d1d1;
+  cursor: pointer;
+}
+
+/* Ombre douce pour les boutons */
+.btn:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Boutons principaux */
+.btn {
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 8px 20px;
+  text-transform: uppercase;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+/* Styles des boutons d'action */
+.btn-sm {
+  border-radius: 20px;
+  padding: 6px 15px;
+}
+
+/* Liens dans le tableau */
+.table td a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.table td a:hover {
+  text-decoration: underline;
+}
+
+/* Boutons spécifiques */
+.btn-outline-success {
+  color: #28a745;
+  border-color: #28a745;
+  background-color: transparent;
+}
+
+.btn-outline-success:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-warning {
+  background-color: #ff9800;
+  border-color: #ff9800;
+}
+
+.btn-warning:hover {
+  background-color: #e68900;
+}
+
+.btn-danger {
+  background-color: #f44336;
+  border-color: #f44336;
+}
+
+.btn-danger:hover {
+  background-color: #d32f2f;
+}
+
+/* Cartes modernes */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #28a745;
+  color: #fff;
+  font-size: 18px;
+  padding: 15px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Messages d'information */
+.alert-info {
+  background-color: #e7f3fe;
+  color: #31708f;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+/* Titre de la page */
+h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+/* Assure l'alignement et la largeur égale */
+.table-responsive {
+  overflow-x: auto;
+  padding: 0 15px;
+}
+
+table {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Style cohérent pour les cartes et graphiques */
+.card, #piechart_3d {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+/* Centrage des éléments */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}

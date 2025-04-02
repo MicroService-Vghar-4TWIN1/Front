@@ -1,0 +1,51 @@
+<div class="container">
+  <h2>Gestion des Universités</h2>
+
+  <div class="text-center mb-4">
+    <button [routerLink]="['add']" class="btn btn-outline-success">
+      <i class="fas fa-plus me-2"></i> Ajouter une Nouvelle Université
+    </button>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-header">Liste des Universités</div>
+    <div class="card-body">
+      <div *ngIf="universites.length === 0" class="alert alert-info">
+        Aucune université disponible.
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-hover text-center">
+          <thead>
+            <tr>
+              <th>Nom de l'université</th>
+              <th>Actions</th>
+              <th>Open in maps</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let universite of universites">
+              <td>{{ universite.nomUniv }}</td>
+              <td>
+                <button [routerLink]="['update', universite.idUniv]" class="btn btn-warning me-2">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button (click)="deleteUniversite(universite.idUniv)" class="btn btn-danger">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+              <td>
+  <button class="btn btn-info"
+          (click)="openMap(universite.idUniv)">
+    <i class="fas fa-map-marker-alt"></i>
+  </button>
+</td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

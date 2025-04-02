@@ -1,0 +1,60 @@
+<div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+  <h2 class="text-center mb-4">Modifier une université</h2>
+
+  <div class="nice-form-group">
+    <form [formGroup]="universiteForm" (ngSubmit)="onSubmit()">
+      <div class="nice-form-group">
+        <label for="nomUniv">Nom de l'université</label>
+        <input type="text" id="nomUniv" formControlName="nomUniv" placeholder="Entrez le nom de l'université" required>
+        <div *ngIf="universiteForm.get('nomUniv')?.invalid && universiteForm.get('nomUniv')?.touched"
+          class="error-message">
+          Le nom est requis
+        </div>
+      </div>
+
+      <div class="nice-form-group" style="margin-top: 20px;">
+        <button type="button" (click)="toggleLocationForm()"
+          style="padding: 8px 15px; background: #3f51b5; color: white; border: none; border-radius: 4px; cursor: pointer;">
+          {{ showLocationForm ? 'Masquer la localisation' : 'Modifier la localisation' }}
+        </button>
+      </div>
+
+<div *ngIf="showLocationForm" class="location-section">
+  <h3>Localiser l’université</h3>
+
+  <div class="mb-3">
+<button type="button" (click)="getCurrentPosition()" class="px-3 py-2 bg-blue-500 text-white rounded">
+      📍 Utiliser ma position actuelle
+    </button>
+  </div>
+
+  <div id="univMap" style="height: 400px; width: 100%; margin-bottom: 15px; border: 1px solid #ccc;"></div>
+
+  <form [formGroup]="locationForm" (ngSubmit)="updateLocation()">
+    <label>Latitude</label>
+    <input type="number" formControlName="latitude" readonly>
+
+    <label>Longitude</label>
+    <input type="number" formControlName="longitude" readonly>
+
+    <button type="submit" [disabled]="locationForm.invalid" class="btn btn-primary">
+      Mettre à jour la localisation
+    </button>
+  </form>
+</div>
+
+
+
+      <div class="nice-form-group" style="display: flex; gap: 15px; justify-content: flex-end; margin-top: 20px;">
+        <button [routerLink]="['/universite']" (click)="cancel()"
+          style="padding: 10px 20px; background: #f5f5f5; color: #333; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;">
+          Annuler
+        </button>
+        <button type="submit" [disabled]="universiteForm.invalid"
+          style="padding: 12px 30px; background: #03840b; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 1.05em; cursor: pointer; transition: background 0.3s;">
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
