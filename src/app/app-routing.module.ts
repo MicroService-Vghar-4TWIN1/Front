@@ -1,26 +1,38 @@
-import { ContratModule } from './contrat/contrat.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContratListComponent } from './contrat/contrat-list/contrat-list.component';
+import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 
 const routes: Routes = [
-
-  {path: 'home' , component: HomeComponent},
-  {path : 'contrats',
-    loadChildren: () => import('./contrat/contrat.module').then(m => m.ContratModule),
+  {
+    path: 'login',
+    component: AuthLayoutComponent,
+    children: [
+      { path: '', component: LoginComponent },  // Page login sans header ni footer
+    ],
   },
-
-
-
-
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path :'**', component:NotfoundComponent},
+  {
+    path: '',
+    component: MainLayoutComponent,  // Layout principal avec header et footer
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'notfound', component: NotfoundComponent },
+      {path : 'contrats',
+        loadChildren: () => import('./contrat/contrat.module').then(m => m.ContratModule),
+      },
+      { path: 'ressources', loadChildren: () => import('./ressource/ressource.module').then(m => m.RessourceModule) },
+      
+    ],
+  },
+  { path: '**', redirectTo: 'notfound' },  // Route non trouvée
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
+

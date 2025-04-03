@@ -1,0 +1,252 @@
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6e6f6e;
+  padding: 30px;
+}
+
+.container {
+  position: relative;
+  max-width: 1000px; /* Augmenter la largeur maximale */
+  width: 100%;
+  background: #fff;
+  padding: 60px 50px; /* Augmenter le padding */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  perspective: 2700px;
+}
+
+.container .cover {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 60%; /* Augmenter la largeur */
+  z-index: 98;
+  transition: all 1s ease;
+  transform-origin: left;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.container #flip:checked ~ .cover {
+  transform: rotateY(-180deg);
+}
+
+.container #flip:checked ~ .forms .login-form {
+  pointer-events: none;
+}
+
+.container .cover .front,
+.container .cover .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.cover .back {
+  transform: rotateY(180deg);
+}
+
+.container .cover img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 10;
+}
+
+.container .cover .text {
+  position: absolute;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container .cover .text::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0.5;
+  background: #6e6f6e;
+}
+
+.cover .text .text-1,
+.cover .text .text-2 {
+  z-index: 20;
+  font-size: 36px; /* Augmenter la taille des textes */
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+
+.cover .text .text-2 {
+  font-size: 18px; /* Augmenter la taille du texte secondaire */
+  font-weight: 500;
+}
+
+.container .forms {
+  height: 100%;
+  width: 100%;
+  background: #fff;
+}
+
+.container .form-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-content .login-form,
+.form-content .signup-form {
+  width: calc(100% / 2 - 30px); /* Augmenter la largeur des formulaires */
+}
+
+.forms .form-content .title {
+  position: relative;
+  font-size: 30px; /* Augmenter la taille du titre */
+  font-weight: 500;
+  color: #333;
+}
+
+.forms .form-content .title:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px; /* Augmenter la taille de la barre */
+  width: 30px;
+  background: #026a09;
+}
+
+.forms .signup-form .title:before {
+  width: 25px; /* Ajuster la barre pour la section inscription */
+}
+
+.forms .form-content .input-boxes {
+  margin-top: 40px; /* Augmenter l'espacement entre les champs */
+}
+
+.forms .form-content .input-box {
+  display: flex;
+  align-items: center;
+  height: 60px; /* Augmenter la hauteur des champs */
+  width: 100%;
+  margin: 15px 0; /* Augmenter l'espacement entre les champs */
+  position: relative;
+}
+
+.form-content .input-box input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0 40px; /* Augmenter le padding */
+  font-size: 18px; /* Augmenter la taille de la police */
+  font-weight: 500;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.form-content .input-box input:focus,
+.form-content .input-box input:valid {
+  border-color: #026a09;
+}
+
+.form-content .input-box i {
+  position: absolute;
+  color: #026a09;
+  font-size: 22px; /* Augmenter la taille de l'icône */
+}
+
+.forms .form-content .text {
+  font-size: 16px; /* Augmenter la taille du texte */
+  font-weight: 500;
+  color: #333;
+}
+
+.forms .form-content .text a {
+  text-decoration: none;
+}
+
+.forms .form-content .text a:hover {
+  text-decoration: underline;
+}
+
+.forms .form-content .button {
+  color: #fff;
+  margin-top: 50px; /* Augmenter l'espacement */
+}
+
+.forms .form-content .button input {
+  color: #fff;
+  background: #0d7d14;
+  border-radius: 8px; /* Arrondir davantage les boutons */
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.forms .form-content .button input:hover {
+  background: #026a09;
+}
+
+.forms .form-content label {
+  color: #026a09;
+  cursor: pointer;
+}
+
+.forms .form-content label:hover {
+  text-decoration: underline;
+}
+
+.forms .form-content .login-text,
+.forms .form-content .sign-up-text {
+  text-align: center;
+  margin-top: 35px; /* Augmenter l'espacement entre les textes */
+}
+
+.container #flip {
+  display: none;
+}
+
+@media (max-width: 830px) { /* Augmenter la largeur maximale avant de modifier le layout */
+  .container .cover {
+    display: none;
+  }
+
+  .form-content .login-form,
+  .form-content .signup-form {
+    width: 100%;
+  }
+
+  .form-content .signup-form {
+    display: none;
+  }
+
+  .container #flip:checked ~ .forms .signup-form {
+    display: block;
+  }
+
+  .container #flip:checked ~ .forms .login-form {
+    display: none;
+  }
+}
