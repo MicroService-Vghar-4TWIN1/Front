@@ -1,0 +1,37 @@
+<div class="historique-container">
+    <div class="header-section">
+      <h2 class="page-title">
+        <i class="fas fa-history"></i> Historique des Modifications
+      </h2>
+    </div>
+  
+    <!-- Empty State if no historique data -->
+    <div *ngIf="historique.length === 0" class="empty-state">
+      <i class="fas fa-folder-open"></i>
+      <h3>Aucun historique disponible</h3>
+      <p>Aucune modification n'a été enregistrée pour ce contrat.</p>
+    </div>
+  
+    <!-- Historique Table -->
+    <div *ngIf="historique.length > 0" class="responsive-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Date <i class="fas fa-sort"></i></th>
+            <th>Action <i class="fas fa-sort"></i></th>
+            <th>Détails</th>
+            <th>Utilisateur</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of historique">
+            <td>{{ entry.dateModification | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ entry.action }}</td>
+            <td>{{ entry.details }}</td>
+            <td>{{ entry.utilisateur }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

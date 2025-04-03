@@ -1,0 +1,108 @@
+<div class="form-container">
+  <div class="form-card">
+    <div class="form-header">
+      <h2><i class="fas fa-file-contract"></i> Nouveau Contrat</h2>
+      <p>Remplissez les détails du nouveau contrat</p>
+    </div>
+
+    <form (ngSubmit)="save()" #contratForm="ngForm" class="form-body">
+
+<!-- Nom -->
+<div class="form-group">
+  <label for="nom">Nom</label>
+  <input type="text" 
+         id="nom" 
+         class="form-input"
+         [(ngModel)]="newContrat.nom" 
+         name="nom" 
+         required>
+</div>
+
+
+
+
+
+      <!-- Date Début -->
+      <div class="form-group">
+        <label for="dateDebut">Date de début</label>
+        <input type="date" 
+               id="dateDebut" 
+               class="form-input"
+               [(ngModel)]="newContrat.dateDebutContrat" 
+               name="dateDebutContrat" 
+               required>
+        <i class="fas fa-calendar-alt input-icon"></i>
+      </div>
+
+      <!-- Date Fin -->
+      <div class="form-group">
+        <label for="dateFin">Date de fin</label>
+        <input type="date" 
+               id="dateFin" 
+               class="form-input"
+               [(ngModel)]="newContrat.dateFinContrat" 
+               name="dateFinContrat" 
+               required>
+        <i class="fas fa-calendar-alt input-icon"></i>
+      </div>
+
+      <!-- Spécialité -->
+      <div class="form-group">
+        <label for="specialite">Spécialité</label>
+        <div class="select-wrapper">
+          <select id="specialite" 
+                  class="form-input"
+                  [(ngModel)]="newContrat.specialite" 
+                  name="specialite" 
+                  required>
+            <option *ngFor="let spec of specialites" [value]="spec">{{spec}}</option>
+          </select>
+          <i class="fas fa-chevron-down select-icon"></i>
+        </div>
+      </div>
+
+      <!-- Montant -->
+      <div class="form-group">
+        <label for="montant">Montant (€)</label>
+        <div class="input-with-icon">
+          <input type="number" 
+                 id="montant" 
+                 class="form-input"
+                 [(ngModel)]="newContrat.montantContrat" 
+                 name="montantContrat" 
+                 min="0" 
+                 step="0.01" 
+                 required>
+          <span class="currency-symbol">€</span>
+        </div>
+      </div>
+
+      <!-- Archivé -->
+      <div class="form-group checkbox-group">
+        <label class="checkbox-container">
+          <input type="checkbox" 
+                 id="archive" 
+                 [(ngModel)]="newContrat.archive" 
+                 name="archive">
+          <span class="checkmark"></span>
+          Archivé
+        </label>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <button type="button" 
+                class="cancel-btn"
+                (click)="onCancel()">
+          <i class="fas fa-times"></i> Annuler
+        </button>
+        <button type="submit" 
+                class="submit-btn"
+                [disabled]="!contratForm.form.valid || isSubmitting">
+          <i class="fas" [ngClass]="{'fa-save': !isSubmitting, 'fa-spinner fa-spin': isSubmitting}"></i> 
+          {{ isSubmitting ? 'Enregistrement...' : 'Enregistrer' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

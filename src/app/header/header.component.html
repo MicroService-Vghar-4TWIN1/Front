@@ -1,6 +1,16 @@
-<p>header works!</p>
-
-<a [routerLink]="['/contrats' ]" class="btn btn-primary">contart  </a>
-
-<a [routerLink]="['/' ]" class="btn btn-primary">equipe  </a>
-<a [routerLink]="['/' ]" class="btn btn-primary">universite </a>
+<header class="header">
+    <div class="logo">
+      <h1>Gestion des Projets</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a [routerLink]="['/home']" class="btn btn-primary">Accueil</a></li>
+        <li><a [routerLink]="['/contrats']" class="btn btn-primary">Contrats</a></li>
+        <li><a [routerLink]="['/contrats/ajout']" class="btn btn-success">Ajouter Contrat</a></li>
+        <li><a [routerLink]="['/contrats/liste']" class="btn btn-warning">Liste des Contrats</a></li>
+        <li><a [routerLink]="['/']" class="btn btn-primary">Equipe</a></li>
+        <li><a [routerLink]="['/']" class="btn btn-primary">Université</a></li>
+        <li><a [routerLink]="['/ressources']" class="btn btn-primary">Ressources</a></li>
+      </ul>
+    </nav>
+</header>

@@ -1,17 +1,111 @@
-<p>contrat-list works!</p>
-
-
-<div *ngIf="contrats.length > 0">
-    <h2>Liste des contrats</h2>
-    <ul>
-      <li *ngFor="let contrat of contrats">
-        {{ contrat.Specialite }} <!-- Remplacez 'name' par le bon attribut -->
-        {{ contrat.montantContrat }}
-      </li>
-    </ul>
+<div class="contract-management-container">
+  <div class="header-section">
+    <h2 class="page-title">
+      <i class="fas fa-file-contract"></i> Gestion des Contrats
+    </h2>
+    
+    <div class="action-bar">
+      <!-- Search Bar -->
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" 
+               class="search-input" 
+               placeholder="Rechercher ..." 
+               (input)="filterContrats($event)">
+      </div>
+      
+      <!-- Add Button -->
+      <button [routerLink]="['/contrats/add']" class="add-button">
+        <i class="fas fa-plus-circle"></i> Nouveau Contrat
+      </button>
+    </div>
   </div>
-  
-  <div *ngIf="contrats.length === 0">
-    <p>Aucun contrat trouvé</p>
+
+  <!-- Stats Cards -->
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="stat-value">{{contrats.length}}</div>
+      <div class="stat-label">Contrats Totaux</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{activeContratsCount}}</div>
+      <div class="stat-label">Contrats Actifs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{archivedContratsCount}}</div>
+      <div class="stat-label">Contrats Archivés</div>
+    </div>
   </div>
-  
+
+  <!-- Contracts Table -->
+  <div class="table-container">
+    <div *ngIf="contrats.length === 0" class="empty-state">
+      <i class="fas fa-folder-open"></i>
+      <h3>Aucun contrat disponible</h3>
+      <p>Commencez par ajouter un nouveau contrat</p>
+      <button [routerLink]="['/contrats/add']" class="empty-state-button">
+        <i class="fas fa-plus"></i> Ajouter un contrat
+      </button>
+    </div>
+
+    <div *ngIf="contrats.length > 0" class="responsive-table">
+      <table>
+        <thead>
+          <tr>
+            
+            <th (click)="sortTable('nom')" class="sortable">
+              Nom <i class="fas fa-sort"></i>
+            </th>
+            
+            <th (click)="sortTable('dateDebutContrat')" class="sortable">
+              Date Début <i class="fas fa-sort"></i>
+            </th>
+            <th (click)="sortTable('dateFinContrat')" class="sortable">
+              Date Fin <i class="fas fa-sort"></i>
+            </th>
+            <th>Spécialité</th>
+            <th>Statut</th>
+            <th (click)="sortTable('montantContrat')" class="sortable">
+              Montant <i class="fas fa-sort"></i>
+            </th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let contrat of filteredContrats">
+           
+            <td data-label="Nom">{{ contrat.nom }}</td>
+            <td data-label="Date Début">{{ contrat.dateDebutContrat | date:'dd/MM/yyyy' }}</td>
+            <td data-label="Date Fin">{{ contrat.dateFinContrat | date:'dd/MM/yyyy' }}</td>
+            <td data-label="Spécialité">{{ contrat.specialite }}</td>
+            <td data-label="Statut">
+              <span class="status-badge" [class.archived]="contrat.archive">
+                {{ contrat.archive ? 'Archivé' : 'Actif' }}
+              </span>
+            </td>
+            <td data-label="Montant">{{ contrat.montantContrat | currency:'EUR':'symbol':'1.2-2' }}</td>
+            <td data-label="Actions" class="actions-cell">
+              <button [routerLink]="['/contrats/update', contrat.idContrat]" 
+                      class="action-button edit" 
+                      title="Modifier">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+              <button (click)="deleteContrat(contrat.idContrat)" 
+                      class="action-button delete" 
+                      title="Supprimer">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+              <!-- Historique Button -->
+             
+               <button [routerLink]="['/contrats/historique', contrat.idContrat]"
+                      class="action-button history" 
+                      title="Historique">
+                <i class="fas fa-history"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
