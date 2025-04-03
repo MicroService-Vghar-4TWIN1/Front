@@ -24,7 +24,9 @@ const routes: Routes = [
         loadChildren: () => import('./contrat/contrat.module').then(m => m.ContratModule),
       },
       { path: 'ressources', loadChildren: () => import('./ressource/ressource.module').then(m => m.RessourceModule) },
-      
+      { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+      { path: 'finance', loadChildren: () => import('./finance/finance.module').then(m => m.FinanceModule) },
+
     ],
   },
   { path: '**', redirectTo: 'notfound' },  // Route non trouvée

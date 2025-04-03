@@ -19,7 +19,7 @@
   }
   
   #home button {
-    background-color: #ff8a00;
+    background-color: #28a745;
     color: white;
     padding: 12px 30px;
     font-size: 1.1rem;
@@ -31,7 +31,7 @@
   }
   
   #home button:hover {
-    background-color: #d77700;
+    background-color: #28a745;
   }
   
   .image-container {
