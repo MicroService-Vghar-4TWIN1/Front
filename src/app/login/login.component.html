@@ -21,19 +21,30 @@
         <div class="form-content">
           <div class="login-form">
             <div class="title">Se connecter</div>
-            <form action="#">
+            <form (ngSubmit)="onLogin()">
               <div class="input-boxes">
                 <div class="input-box">
                   <i class="fas fa-envelope"></i>
-                  <input type="text" placeholder="Entrez votre email" required>
+                  <input
+                    type="text"
+                    placeholder="Entrez votre Nom"
+                    [(ngModel)]="username"
+                    name="username"
+                    required
+                  />
                 </div>
                 <div class="input-box">
                   <i class="fas fa-lock"></i>
-                  <input type="password" placeholder="Entrez votre mot de passe" required>
+                  <input
+                    type="password"
+                    placeholder="Entrez votre mot de passe"
+                    [(ngModel)]="password"
+                    name="password"
+                    required
+                  />
                 </div>
-                <div class="text"><a href="#">Mot de passe oublié ?</a></div>
                 <div class="button input-box">
-                  <input type="submit" value="Soumettre" onclick="window.location.href='/home'; return false;">
+                  <input type="submit" value="Soumettre" />
                 </div>
                 <div class="text sign-up-text">Vous n'avez pas de compte ? <label for="flip">Inscrivez-vous maintenant</label></div>
               </div>
