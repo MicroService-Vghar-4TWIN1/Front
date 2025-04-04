@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private keycloakUrl = 'http://localhost:8091/realms/UserKeyclock/protocol/openid-connect/token';
-  private clientId = 'user-microservice';
-  private clientSecret = 'Xbz1v1TzMbM5ToQSJXpSP3nzNstU0FV0';  
+  private keycloakUrl = 'http://localhost:8091/realms/wess/protocol/openid-connect/token';
+  private clientId = 'getway';
+  private clientSecret = 'HVXzdvlFrXiG8eHgAbl2hyFSas6RgXAm';
 
   constructor(private http: HttpClient, private router: Router) {}
 
