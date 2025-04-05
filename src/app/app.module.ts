@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ContratModule } from './contrat/contrat.module'; // Importez ContratModule
 import { AppRoutingModule } from './app-routing.module';
@@ -14,11 +14,17 @@ import { FooterComponent } from './footer/footer.component';
 import { RessourceModule } from './ressource/ressource.module';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { LoginComponent } from './login/login.component';
+import { KeycloakService } from './service/keyclock.service';
+import { HttpTokenInterceptor } from './service/interceptor/http-token.interceptor';
 
+
+export function kcFactory(kcService: KeycloakService) {
+  return () => kcService.init();
+}
 
 @NgModule({
   declarations: [
@@ -41,11 +47,26 @@ import { LoginComponent } from './login/login.component';
     UniversiteModule,
     RessourceModule,
     FormsModule,
+    
     BrowserAnimationsModule,
     HttpClientModule
 
   ],
-  providers: [],
+  providers: [
+    HttpClient,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpTokenInterceptor,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      deps: [KeycloakService],
+      useFactory: kcFactory,
+      multi: true
+    }
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
