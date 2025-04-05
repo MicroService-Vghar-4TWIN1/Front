@@ -17,9 +17,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
-import { LoginComponent } from './login/login.component';
-import { KeycloakService } from './service/keyclock.service';
-import { HttpTokenInterceptor } from './service/interceptor/http-token.interceptor';
+import { KeycloakService } from './services/keycloak/keycloak.service';
+import { HttpTokenInterceptor } from './services/interceptor/http-token.interceptor';
+import { RegisterComponent } from './pages/register/register.component';
+import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
+import { LoginComponent } from './pages/login/login.component';
+import {CodeInputModule} from 'angular-code-input';
 
 
 export function kcFactory(kcService: KeycloakService) {
@@ -35,6 +38,8 @@ export function kcFactory(kcService: KeycloakService) {
     FooterComponent,
     AuthLayoutComponent,
     MainLayoutComponent,
+    RegisterComponent,
+    ActivateAccountComponent,
     LoginComponent,
   ],
   imports: [
@@ -47,7 +52,7 @@ export function kcFactory(kcService: KeycloakService) {
     UniversiteModule,
     RessourceModule,
     FormsModule,
-    
+    CodeInputModule,
     BrowserAnimationsModule,
     HttpClientModule
 
