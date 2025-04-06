@@ -10,8 +10,8 @@ export class AuthService {
   private clientId = 'microservice';
   private clientSecret = 'KntS6kIEdjnonuVBp8VlwuyZ4suHfFhf';
 
-  private adminClientId = 'admin-cli';
-  private adminClientSecret = 'your_admin_client_secret'; // Remplace avec le vrai
+  private adminClientId = 'admin';
+  private adminClientSecret = 'KntS6kIEdjnonuVBp8VlwuyZ4suHfFhf'; // Remplace avec le vrai
   private adminTokenUrl = 'http://localhost:8092/realms/master/protocol/openid-connect/token';
   private createUserUrl = 'http://localhost:8092/admin/realms/projet/users';
 
@@ -28,9 +28,12 @@ export class AuthService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
-
+console.log('Sending login request', body.toString());
     return this.http.post<any>(this.keycloakTokenUrl, body.toString(), { headers });
   }
+
+
+  
 
   signup(username: string, email: string, password: string) {
     const body = new URLSearchParams();
@@ -87,4 +90,7 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+
+
+  
 }

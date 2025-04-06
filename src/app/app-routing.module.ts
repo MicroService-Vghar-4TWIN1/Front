@@ -8,17 +8,16 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'login',
+    path: 'home',
+    redirectTo: 'home',
     pathMatch: 'full'   // <-- important pour éviter les conflits
   },
-  {
-    path: 'login',
-    component: AuthLayoutComponent,
-    children: [
-      { path: '', component: LoginComponent },  // Page login sans header ni footer
-    ],
-  },
+  
+  
+
+      { path: 'login', component: LoginComponent },  // Page login sans header ni footer
+ 
+ 
   {
     path: '',
     component: MainLayoutComponent,  // Layout principal avec header et footer
