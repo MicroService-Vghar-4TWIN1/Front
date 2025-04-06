@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Mise à jour du Département</h2>
+<mat-dialog-content [formGroup]="departementForm">
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Nom</mat-label>
+    <input matInput formControlName="nomDepart">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Code</mat-label>
+    <input matInput formControlName="code">
+  </mat-form-field>
+
+  
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Téléphone</mat-label>
+    <input matInput formControlName="phone">
+  </mat-form-field>
+
+  <mat-slide-toggle formControlName="active">Actif</mat-slide-toggle>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Annuler</button>
+  <button mat-raised-button color="primary" (click)="onUpdate(data.idDepart)">Mettre à jour</button>
+</mat-dialog-actions>

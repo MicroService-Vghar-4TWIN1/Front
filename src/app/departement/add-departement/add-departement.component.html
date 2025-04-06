@@ -1,0 +1,40 @@
+<br/><br/><br/><br/>
+<mat-card class="mat-elevation-z8 max-w-2xl mx-auto mt-10 p-6">
+    <mat-card-title class="text-center text-2xl mb-4">Ajouter un Département</mat-card-title>
+    <form [formGroup]="departementForm" (ngSubmit)="onSubmit()">
+      <div class="grid grid-cols-1 gap-4">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nom du Département</mat-label>
+          <input matInput formControlName="nomDepart" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Code</mat-label>
+          <input matInput formControlName="code" required>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Téléphone</mat-label>
+          <input matInput formControlName="phone" required>
+        </mat-form-field>
+
+        <mat-slide-toggle formControlName="active">Actif</mat-slide-toggle>
+        <br/><br/>
+        <button mat-raised-button color="primary" type="submit" >
+          Ajouter
+        </button>
+      </div>
+    </form>
+  </mat-card>

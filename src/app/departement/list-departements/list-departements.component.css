@@ -1,0 +1,17 @@
+table {
+    width: 100%;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  mat-card {
+    padding: 24px;
+    border-radius: 16px;
+  }
+  
+  mat-chip {
+    font-weight: bold;
+  }
+  
