@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export enum Type {
@@ -21,7 +21,7 @@ export interface Ressource {
   providedIn: 'root'
 })
 export class RessourceService {
-  private apiUrl = 'http://localhost:8082/Ressource';
+  private apiUrl = 'http://localhost:8090/Ressource';
 
   constructor(private http: HttpClient) { }
 
@@ -33,11 +33,17 @@ export class RessourceService {
     return this.http.get<Ressource>(`${this.apiUrl}/${id}`);
   }
 
-  addRessource(formData: FormData): Observable<any> {
+  addRessource(ressourceData: any, pdfFile?: File): Observable<any> {
+    const formData = new FormData();
+    
+    if (ressourceData.titre) formData.append('titre', ressourceData.titre);
+    if (ressourceData.url) formData.append('url', ressourceData.url);
+    if (ressourceData.description) formData.append('description', ressourceData.description);
+    formData.append('type', ressourceData.type);
+    if (pdfFile) formData.append('pdfFile', pdfFile);
+
     return this.http.post(this.apiUrl, formData);
   }
-  
-  
 
   updateRessource(ressource: Ressource): Observable<Ressource> {
     return this.http.put<Ressource>(this.apiUrl, ressource);
@@ -50,4 +56,10 @@ export class RessourceService {
   getStats(): Observable<Map<string, number>> {
     return this.http.get<Map<string, number>>(`${this.apiUrl}/stats`);
   }
+
+  getSummary(id: number): Observable<string> {
+    return this.http.get(`${this.apiUrl}/${id}/summary`, { responseType: 'text' });
+  }
+  
+  
 }

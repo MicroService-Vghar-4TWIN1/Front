@@ -6,12 +6,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RessourceAddComponent } from './ressource-add/ressource-add.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RessourceUpdateComponent } from './ressource-update/ressource-update.component';
+import { RessourceDetailComponent } from './ressource-detail/ressource-detail.component';
 
 @NgModule({
   declarations: [
     RessourceListComponent,
     RessourceAddComponent,
-    RessourceUpdateComponent
+    RessourceUpdateComponent,
+    RessourceDetailComponent
   ],
   imports: [
     CommonModule,

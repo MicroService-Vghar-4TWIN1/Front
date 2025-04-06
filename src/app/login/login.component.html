@@ -1,0 +1,69 @@
+<body>
+    <div class="container">
+      <input type="checkbox" id="flip">
+      <div class="cover">
+        <div class="front">
+          <img src="https://www.sorbonne-universite.fr/sites/default/files/media/2020-10/shutterstock_1100733734.jpg" alt="">
+          <div class="text">
+            <span class="text-1">La gestion des projets universitaires <br> offre des opportunités de collaboration et de croissance</span>
+            <span class="text-2">Connectons-nous</span>
+          </div>
+        </div>
+        <div class="back">
+          <img class="backImg" src="https://www.timeshighereducation.com/student/sites/default/files/students-in-library.jpg" alt="">
+          <div class="text">
+            <span class="text-1">Bénéficiez d'une aide financière en cas de besoin <br> pour soutenir vos projets académiques</span>
+            <span class="text-2">Commençons</span>
+          </div>
+        </div>
+      </div>
+      <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">Se connecter</div>
+            <form action="#">
+              <div class="input-boxes">
+                <div class="input-box">
+                  <i class="fas fa-envelope"></i>
+                  <input type="text" placeholder="Entrez votre email" required>
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" placeholder="Entrez votre mot de passe" required>
+                </div>
+                <div class="text"><a href="#">Mot de passe oublié ?</a></div>
+                <div class="button input-box">
+                  <input type="submit" value="Soumettre" onclick="window.location.href='/home'; return false;">
+                </div>
+                <div class="text sign-up-text">Vous n'avez pas de compte ? <label for="flip">Inscrivez-vous maintenant</label></div>
+              </div>
+            </form>
+          </div>
+          <div class="signup-form">
+            <div class="title">S'inscrire</div>
+            <form action="#">
+              <div class="input-boxes">
+                <div class="input-box">
+                  <i class="fas fa-user"></i>
+                  <input type="text" placeholder="Entrez votre nom" required>
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-envelope"></i>
+                  <input type="text" placeholder="Entrez votre email" required>
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" placeholder="Entrez votre mot de passe" required>
+                </div>
+                <div class="button input-box">
+                  <input type="submit" value="Soumettre" onclick="window.location.href='/home'; return false;">
+                </div>
+                <div class="text sign-up-text">Vous avez déjà un compte ? <label for="flip">Connectez-vous maintenant</label></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  
