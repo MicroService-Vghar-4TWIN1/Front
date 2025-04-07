@@ -1,0 +1,10 @@
+<!-- Calendar Layout Container -->
+<div class="calendar-layout">
+  <!-- Button to navigate to the add page, aligned to the right -->
+  <button [routerLink]="['/formation/add']" class="add-button">
+    <i class="fas fa-plus-circle"></i> Nouvelle Formation
+  </button>
+
+  <!-- FullCalendar Component with additional styling for better visuals -->
+  <full-calendar [options]="calendarOptions" class="calendar"></full-calendar>
+</div>

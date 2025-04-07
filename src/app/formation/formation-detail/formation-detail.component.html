@@ -1,0 +1,56 @@
+  <div class="formation-details-container">
+    <div class="formation-header">
+      <h2>Détails de la Formation</h2>
+    </div>
+
+    <div class="formation-info">
+      <div class="formation-item">
+        <h4>Nom de la Formation</h4>
+        <p>{{ formation?.nomFormation || 'Nom non disponible' }}</p>
+      </div>
+
+      <div class="formation-item">
+        <h4>Date de la Formation</h4>
+        <p>{{ formation ? (formation.dateFormation | date: 'dd/MM/yyyy') : 'Date non disponible' }}</p>
+      </div>
+
+      <div class="formation-item">
+        <h4>Description</h4>
+        <p>{{ formation?.description || 'Description non disponible' }}</p>
+      </div>
+
+      <div class="formation-item">
+        <h4>Nombre Restant</h4>
+        <p>{{ formation?.nombrePlace || 'Non défini' }}</p>
+      </div>
+
+      <div class="formation-item">
+        <h4>Prix de la Place</h4>
+        <p>{{ formation?.prix || 'Non défini' }} €</p>
+      </div>
+
+      <div class="formation-item">
+        <h4>État</h4>
+        <p [ngClass]="{
+          'status-pending': formation?.statut === 'PLANNIFIEE',
+          'status-accepted': formation?.statut === 'TERMINEE',
+          'status-refused': formation?.statut === 'EN_COURS'
+        }">{{ formation?.statut || 'État non défini' }}</p>
+      </div>
+    </div>
+
+    <div class="formation-actions">
+      <button  (click)="editFormation(formationId)" class="btn-edit">
+        <i class="fas fa-edit"></i> Modifier
+      </button>
+      <button  (click)="deleteFormation(formationId)" class="btn-delete">
+        <i class="fas fa-trash"></i> Supprimer
+      </button>
+      <button  (click)="onCancel()" class="btn-retour">
+        <i class="fas fa-calendar-alt"></i> Retour
+      </button>
+      <button (click)="startPayment()" class="btn-payment">
+        <i class="fas fa-credit-card"></i> Payer maintenant
+      </button>
+    </div>
+  </div>

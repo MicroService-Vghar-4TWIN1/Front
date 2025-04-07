@@ -40,7 +40,8 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
     RessourceModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    
 
   ],
   providers: [],
