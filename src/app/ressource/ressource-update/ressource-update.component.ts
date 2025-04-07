@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RessourceService, Ressource, Type } from '../../service/ressource.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ressource-update',
@@ -10,67 +10,96 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class RessourceUpdateComponent implements OnInit {
   ressourceForm: FormGroup;
-
-  ressource: Ressource = {
-    idRessource: 0,
+  ressource: any = {
     titre: '',
     url: '',
-    pdf: '',
     description: '',
-    type: Type.E_Book // Valeur par défaut valide
+    type: '',
+    pdf: null
   };
-
-  types = Object.values(Type);
+  types = ['E_Book', 'Cours', 'Article'];
+  pdfFile?: File ;
+  showNewPdfField = false;
+  currentPdfUrl: string | null = null;
 
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private ressourceService: RessourceService,
-    private fb: FormBuilder
+    private ressourceService: RessourceService
   ) {
     this.ressourceForm = this.fb.group({
-      titre: [this.ressource.titre, [Validators.required]],
-      url: [this.ressource.url, [Validators.required, Validators.pattern('https?://.+')]],
-      description: [this.ressource.description, [Validators.required]],
-      type: [this.ressource.type, [Validators.required]],
+      titre: ['', Validators.required],
+      url: ['', Validators.pattern('https?://.+')],
+      description: ['', Validators.required],
+      type: ['', Validators.required]
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.ressourceService.getRessource(+id).subscribe(
-        ressource => {
-          this.ressource = ressource;
-          this.ressourceForm.patchValue(ressource);
+        (data) => {
+          this.ressource = data;
+          this.ressourceForm.patchValue({
+            titre: this.ressource.titre,
+            url: this.ressource.url,
+            description: this.ressource.description,
+            type: this.ressource.type
+          });
+          
+          if (this.ressource.pdf) {
+            this.currentPdfUrl = `http://localhost:8080/upload-dir/${this.ressource.pdf}`;
+          }
+        },
+        (error) => {
+          console.error('Erreur lors du chargement', error);
         }
       );
     }
   }
 
-  // Handle file selection
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input?.files?.length) {
-      const file = input.files[0];
-      this.ressource.pdf = file.name;  // Stocke juste le nom du fichier (si nécessaire)
-      this.ressourceForm.patchValue({ pdf: file });  // Ajoute le fichier au formulaire
-      console.log("File selected:", file);
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      this.pdfFile = event.target.files[0];
     }
   }
-  
 
-  onSubmit(): void {
-    if (this.ressourceForm.valid) {
-      const updatedRessource = { ...this.ressourceForm.value, idRessource: this.ressource.idRessource };
-        this.ressourceService.updateRessource(updatedRessource).subscribe(() => {
-        this.router.navigate(['/ressources']);
-      });
-    }
+  removeCurrentPdf() {
+    this.ressource.pdf = null;
+    this.currentPdfUrl = null;
+    this.showNewPdfField = true;
   }
-  
 
-  cancel(): void {
+  cancel() {
     this.router.navigate(['/ressources']);
+  }
+
+  submitForm() {
+    if (this.ressourceForm.valid) {
+      const id = this.route.snapshot.paramMap.get('id');
+      if (id) {
+        const formData = {
+          ...this.ressourceForm.value,
+          pdf: this.ressource.pdf ? 'keep' : null
+        };
+        
+        this.ressourceService.updateRessource(
+          +id,
+          formData,
+          this.pdfFile,
+          !!this.ressource.pdf && !this.pdfFile
+        ).subscribe(
+          (response) => {
+            console.log('Ressource mise à jour avec succès', response);
+            this.router.navigate(['/ressources']);
+          },
+          (error) => {
+            console.error('Erreur lors de la mise à jour', error);
+          }
+        );
+      }
+    }
   }
 }
