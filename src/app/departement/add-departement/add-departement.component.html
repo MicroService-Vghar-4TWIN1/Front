@@ -29,6 +29,15 @@
           <mat-label>Téléphone</mat-label>
           <input matInput formControlName="phone" required>
         </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Université</mat-label>
+          <mat-select formControlName="idUniversite" required>
+            <mat-option *ngFor="let univ of universities" [value]="univ.idUniv">
+              {{ univ.nomUniv }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
 
         <mat-slide-toggle formControlName="active">Actif</mat-slide-toggle>
         <br/><br/>

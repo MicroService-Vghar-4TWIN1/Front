@@ -10,6 +10,7 @@ import { DepartementService } from 'src/app/service/departement.service';
 })
 export class UpdateDepartementComponent {
   departementForm: FormGroup;
+  universities: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -25,8 +26,20 @@ export class UpdateDepartementComponent {
       code: [data.code, Validators.required],
       email: [data.email, [Validators.required, Validators.email]],
       phone: [data.phone, Validators.required],
-      active: [data.active]
+      active: [data.active],
+      idUniversite: [data.idUniversite, Validators.required]
     });
+  }
+  ngOnInit(): void {
+    this.getUniversities();
+  }
+  getUniversities() {
+    this.http.get<any[]>('http://localhost:8090/universite/universite/retrieve-all-universites')
+      .subscribe(data => {
+        this.universities = data;
+      }, error => {
+        console.error('Erreur lors du chargement des universités:', error);
+      });
   }
 
   onUpdate(id:any): void {

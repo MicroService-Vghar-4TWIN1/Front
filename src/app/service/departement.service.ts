@@ -10,18 +10,23 @@ export interface Departement {
   email: string;
   phone: string;
   active: boolean;
+  universiteName: string;  
+  idUniversite: number     // optional when creating
 }
 @Injectable({
   providedIn: 'root'
 })
 export class DepartementService {
 
-  private baseUrl = 'http://localhost:8089/departementMicroService';
+  private baseUrl = 'http://localhost:8090/departementMicroService';
   
     constructor(private http: HttpClient) {}
   
     getAll(): Observable<Departement[]> {
       return this.http.get<Departement[]>(`${this.baseUrl}/retrieve-all-departements`);
+    }
+    getUniversityById(idUniversite: number): Observable<any> {
+      return this.http.get<any>(`${this.baseUrl}/uni/${idUniversite}`);
     }
   
     getById(id: number): Observable<Departement> {
