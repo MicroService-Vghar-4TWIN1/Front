@@ -25,6 +25,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 
+
 export function kcFactory(kcService: KeycloakService) {
   return () => kcService.init();
 }
@@ -38,8 +39,9 @@ export function kcFactory(kcService: KeycloakService) {
     FooterComponent,
     AuthLayoutComponent,
     MainLayoutComponent,
-    LoginComponent,
+    LoginComponent
 
+   
   ],
   imports: [
     BrowserModule,
@@ -54,11 +56,14 @@ export function kcFactory(kcService: KeycloakService) {
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+   
   
    
    
    
+    
+   
+    BrowserAnimationsModule,
     HttpClientModule
 
   ],

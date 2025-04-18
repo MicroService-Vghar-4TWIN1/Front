@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export enum Type {
@@ -33,15 +33,34 @@ export class RessourceService {
     return this.http.get<Ressource>(`${this.apiUrl}/${id}`);
   }
 
-  addRessource(formData: FormData): Observable<any> {
+  addRessource(ressourceData: any, pdfFile?: File): Observable<any> {
+    const formData = new FormData();
+    
+    if (ressourceData.titre) formData.append('titre', ressourceData.titre);
+    if (ressourceData.url) formData.append('url', ressourceData.url);
+    if (ressourceData.description) formData.append('description', ressourceData.description);
+    formData.append('type', ressourceData.type);
+    if (pdfFile) formData.append('pdfFile', pdfFile);
+
     return this.http.post(this.apiUrl, formData);
   }
 
-
-
-  updateRessource(ressource: Ressource): Observable<Ressource> {
-    return this.http.put<Ressource>(this.apiUrl, ressource);
+  
+  updateRessource(id: number, ressourceData: any, pdfFile?: File, keepCurrentPdf: boolean = false): Observable<any> {
+    const formData = new FormData();
+    
+    if (ressourceData.titre) formData.append('titre', ressourceData.titre);
+    if (ressourceData.url) formData.append('url', ressourceData.url);
+    if (ressourceData.description) formData.append('description', ressourceData.description);
+    formData.append('type', ressourceData.type);
+    formData.append('currentPdf', keepCurrentPdf ? 'true' : 'false');
+    if (pdfFile) formData.append('pdfFile', pdfFile);
+  
+    return this.http.put(`${this.apiUrl}/${id}`, formData);
   }
+  
+  
+
 
   deleteRessource(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
@@ -50,4 +69,10 @@ export class RessourceService {
   getStats(): Observable<Map<string, number>> {
     return this.http.get<Map<string, number>>(`${this.apiUrl}/stats`);
   }
+
+  getSummary(id: number): Observable<string> {
+    return this.http.get(`${this.apiUrl}/${id}/summary`, { responseType: 'text' });
+  }
+  
+  
 }
