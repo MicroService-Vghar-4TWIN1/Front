@@ -27,14 +27,18 @@ export interface Equipe {
   providedIn: 'root'
 })
 export class EquipeService {
-  private equipeUrl = 'http://localhost:8089/Kassil/equipe';
+
+  
+  private equipeUrl = 'http://localhost:8090/equipe';
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Equipe[]> {
     return this.http.get<Equipe[]>(`${this.equipeUrl}/retrieve-all-equipes`);
   }
-
+  search(query: string): Observable<Equipe[]> {
+    return this.http.get<Equipe[]>(`${this.equipeUrl}/search?query=${encodeURIComponent(query)}`);
+  }
   getOne(id: number): Observable<Equipe> {
     return this.http.get<Equipe>(`${this.equipeUrl}/retrieve-equipe/${id}`);
   }
