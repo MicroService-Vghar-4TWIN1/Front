@@ -25,13 +25,29 @@ export class KeycloakService {
       const authenticated = await this.keycloakInstance.init({
         onLoad: 'login-required',
         pkceMethod: 'S256',
-        checkLoginIframe: false
+        checkLoginIframe: false,
+        enableLogging: true,
+        flow: 'standard',
       });
 
       if (authenticated) {
         this.profile = await this.keycloakInstance.loadUserProfile() as UserProfile;
         this.profile.token = this.keycloakInstance.token || '';
-      }
+
+   // Set up token refresh
+   setInterval(() => {
+    this.keycloakInstance.updateToken(30) // Refresh token if it will expire in 30 seconds
+      .then(refreshed => {
+        if (refreshed) {
+          console.log('Token refreshed');
+        }
+      })
+      .catch(err => {
+        console.error('Failed to refresh token', err);
+      });
+  }, 30000); // Check every 30 seconds
+}
+      
       return authenticated;
     } catch (error) {
       console.error('Keycloak initialization failed', error);
