@@ -36,6 +36,7 @@ export class UpdateContratComponent implements OnInit {
 
   update(): void {
     this.ContratService.updateContrat(this.contrat).subscribe(() => {
+      
       this.router.navigate(['/contrats/liste']);
     });
   }

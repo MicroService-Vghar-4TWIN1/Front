@@ -31,7 +31,7 @@ export class ContratService {
   }
 
   deleteContrat(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/remove-contrat/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
 
