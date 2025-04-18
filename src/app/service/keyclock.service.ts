@@ -1,50 +1,53 @@
-import  Keycloak  from 'keycloak-js';
+import Keycloak from 'keycloak-js';
+import { UserProfile } from '../model/user-profile';
+import { Injectable } from '@angular/core';
 
-
-import { UserProfile } from './../model/user-profile';
-import {Injectable} from '@angular/core';
-
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class KeycloakService {
-  private _keycloak: Keycloak | undefined;
+  private keycloakInstance: Keycloak.KeycloakInstance;
+  private profile?: UserProfile;
 
-  get keycloak() {
-    if (!this._keycloak) {
-      this._keycloak = new Keycloak({
-        url: 'http://localhost:8092',
-        realm: 'projet',
-        clientId: 'microservice'
-      });
-    }
-    return this._keycloak;
-  }
-
-  private _profile: UserProfile | undefined;
-
-  get profile(): UserProfile | undefined {
-    return this._profile;
-  }
-
-  async init() {
-    const authenticated = await this.keycloak.init({
-      onLoad: 'login-required',
+  constructor() {
+    // Add 'new' keyword here
+    this.keycloakInstance = new Keycloak({
+      url: 'http://localhost:8092',
+      realm: 'projet',
+      clientId: 'microservice'
     });
+  }
 
-    if (authenticated) {
-      this._profile = (await this.keycloak.loadUserProfile()) as UserProfile;
-      this._profile.token = this.keycloak.token || '';
+  get instance(): Keycloak.KeycloakInstance {
+    return this.keycloakInstance;
+  }
+
+  async init(): Promise<boolean> {
+    try {
+      const authenticated = await this.keycloakInstance.init({
+        onLoad: 'login-required',
+        pkceMethod: 'S256',
+        checkLoginIframe: false
+      });
+
+      if (authenticated) {
+        this.profile = await this.keycloakInstance.loadUserProfile() as UserProfile;
+        this.profile.token = this.keycloakInstance.token || '';
+      }
+      return authenticated;
+    } catch (error) {
+      console.error('Keycloak initialization failed', error);
+      return false;
     }
   }
 
   login() {
-    return this.keycloak.login();
+    return this.keycloakInstance.login();
   }
 
   logout() {
-    // this.keycloak.accountManagement();
-    return this.keycloak.logout({redirectUri: 'http://localhost:4200'});
+    return this.keycloakInstance.logout({ redirectUri: 'http://localhost:4200' });
+  }
+
+  isTokenExpired(): boolean {
+    return this.keycloakInstance.isTokenExpired();
   }
 }

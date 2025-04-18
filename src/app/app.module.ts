@@ -53,7 +53,6 @@ export function kcFactory(kcService: KeycloakService) {
 
   ],
   providers: [
-    HttpClient,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpTokenInterceptor,
@@ -61,11 +60,10 @@ export function kcFactory(kcService: KeycloakService) {
     },
     {
       provide: APP_INITIALIZER,
-      deps: [KeycloakService],
-      useFactory: kcFactory,
-      multi: true
+      useFactory: (keycloak: KeycloakService) => () => keycloak.init(),
+      multi: true,
+      deps: [KeycloakService]
     }
-
   ],
   bootstrap: [AppComponent]
 })
