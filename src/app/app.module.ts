@@ -1,3 +1,4 @@
+import { FormationModule } from './formation/formation.module';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ContratModule } from './contrat/contrat.module'; // Importez ContratModule
@@ -5,14 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EquipeModule } from './equipe/equipe.module';
 import { DepartementModule } from './departement/departement.module';
-import { FormationModule } from './formation/formation.module';
+
 import { UniversiteModule } from './universite/universite.module';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { FooterComponent } from './footer/footer.component';
 import { RessourceModule } from './ressource/ressource.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
@@ -20,6 +21,8 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 import { LoginComponent } from './login/login.component';
 import { KeycloakService } from './service/keyclock.service';
 import { HttpTokenInterceptor } from './service/interceptor/http-token.interceptor';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 
 export function kcFactory(kcService: KeycloakService) {
@@ -36,6 +39,7 @@ export function kcFactory(kcService: KeycloakService) {
     AuthLayoutComponent,
     MainLayoutComponent,
     LoginComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -43,13 +47,16 @@ export function kcFactory(kcService: KeycloakService) {
     ContratModule,
     EquipeModule,
     DepartementModule,
-    FormationModule,
     UniversiteModule,
     RessourceModule,
     FormsModule,
-    
+    FormationModule,
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    
 
   ],
   providers: [

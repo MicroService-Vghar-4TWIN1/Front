@@ -9,7 +9,7 @@ import { Contrat } from '../model/Contrat';
 })
 export class ContratService {
 
-  private apiUrl = 'http://localhost:8090/Contrat'; // URL de l'API Gateway
+  private apiUrl = 'http://192.168.174.129:8090/Contrat'; // URL de l'API Gateway
 
   constructor(private http: HttpClient) { }
 

@@ -30,10 +30,11 @@ const routes: Routes = [
       { path: 'ressources', loadChildren: () => import('./ressource/ressource.module').then(m => m.RessourceModule) },
       { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
       { path: 'finance', loadChildren: () => import('./finance/finance.module').then(m => m.FinanceModule) },
+      { path: 'formation',loadChildren: () => import('./formation/formation.module').then(m => m.FormationModule),}
+
 
     ],
-  },
-  { path: '**', redirectTo: 'notfound' },  // Route non trouvée
+  }
 ];
 
 @NgModule({
