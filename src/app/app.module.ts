@@ -55,8 +55,11 @@ export function kcFactory(kcService: KeycloakService) {
     RouterModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    
+  
+   
+   
+   
+    HttpClientModule
 
   ],
   providers: [

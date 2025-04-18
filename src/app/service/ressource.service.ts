@@ -21,7 +21,7 @@ export interface Ressource {
   providedIn: 'root'
 })
 export class RessourceService {
-  private apiUrl = 'http://192.168.174.129:8090/Ressource';
+  private apiUrl = 'http://localhost:8082/Ressource';
 
   constructor(private http: HttpClient) { }
 
