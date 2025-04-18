@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PaymentService {
 
-  private apiUrl = 'http://localhost:8090/formation/api/payment'; // Update this to your backend URL
+  private apiUrl = 'http://192.168.174.129:8090/formation/api/payment'; // Update this to your backend URL
 
   constructor(private http: HttpClient) { }
 

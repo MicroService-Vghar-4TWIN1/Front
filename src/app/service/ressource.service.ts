@@ -21,7 +21,7 @@ export interface Ressource {
   providedIn: 'root'
 })
 export class RessourceService {
-  private apiUrl = 'http://localhost:8090/Ressource';
+  private apiUrl = 'http://192.168.174.129:8090/Ressource';
 
   constructor(private http: HttpClient) { }
 
@@ -36,8 +36,8 @@ export class RessourceService {
   addRessource(formData: FormData): Observable<any> {
     return this.http.post(this.apiUrl, formData);
   }
-  
-  
+
+
 
   updateRessource(ressource: Ressource): Observable<Ressource> {
     return this.http.put<Ressource>(this.apiUrl, ressource);

@@ -14,16 +14,16 @@ export interface Formation {
   nomFormation: string;
   nombrePlace: number;
   prix: number;
-  statut: statut; 
+  statut: statut;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormationService {
-  private apiUrl = 'http://localhost:8090/formation/';
+  private apiUrl = 'http://192.168.174.129:8090/formation/';
 
-  constructor(private http: HttpClient) { } 
+  constructor(private http: HttpClient) { }
 
   getFormations(): Observable<Formation[]> {
     return this.http.get<Formation[]>(this.apiUrl).pipe(
@@ -35,7 +35,7 @@ export class FormationService {
       nombrePlace: newPlaces
     });
   }
-  
+
 
   getFormation(id: number): Observable<Formation> {
     return this.http.get<Formation>(`${this.apiUrl.replace(/\/$/, '')}/${id}`).pipe(
@@ -54,7 +54,7 @@ export class FormationService {
   updateFormation(id: number, formationData: any): Observable<Formation> {
     return this.http.patch<Formation>(`${this.apiUrl.replace(/\/$/, '')}/${id}`, formationData);
   }
-  
+
   deleteFormation(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
