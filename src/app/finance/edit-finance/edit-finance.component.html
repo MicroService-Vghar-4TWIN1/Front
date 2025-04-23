@@ -1,18 +1,19 @@
 <div class="container">
     <h2>Modifier une Aide Financière</h2>
     <form (ngSubmit)="onSubmit()" #financeForm="ngForm">
-        <label for="studentId">ID Étudiant</label>
-        <input type="text" id="studentId" [(ngModel)]="studentId" name="studentId" required>
         
-        <label for="nomProjet">Nom du projet</label>
-        <input type="text" id="nomProjet" [(ngModel)]="nomProjet" name="nomProjet" required>
 
-        <label for="montant">Montant demandé</label>
-        <input type="number" id="montant" [(ngModel)]="montant" name="montant" required>
+        <label for="amountRequested">Montant demandé (€)</label>
+        <input type="number" id="amountRequested" [(ngModel)]="amountRequested" name="amountRequested" min="0" required>
 
-        <label for="description">Description du projet</label>
-        <textarea id="description" [(ngModel)]="description" name="description" rows="4" required></textarea>
+        <label for="reason">Raison </label>
+        <input type="text" id="reason" [(ngModel)]="reason" name="reason" required>
+
+       
+
+      
 
         <button type="submit" class="submit-btn" [disabled]="!financeForm.form.valid">Mettre à jour</button>
     </form>
 </div>
+<br/><br/><br/><br/><br/>

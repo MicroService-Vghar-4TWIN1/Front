@@ -9,10 +9,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EditFinanceComponent implements OnInit {
   financeId = '';
-  nomProjet = '';
-  montant: number | null = null;
-  description = '';
   studentId = '';
+  amountRequested: number | null = null;
+  reason = '';
+  status = 'pending';
+  dateSubmitted: string = '';
+  dateReviewed: string = '';
 
   constructor(
     private financeService: FinancialAidService,
@@ -23,23 +25,22 @@ export class EditFinanceComponent implements OnInit {
   ngOnInit() {
     this.financeId = this.route.snapshot.paramMap.get('id') as string;
     this.financeService.getById(this.financeId).subscribe(data => {
-      this.nomProjet = data.reason;
-      this.montant = data.amountRequested;
-      this.description = data.reason; // Only "reason" exists - you can also use "description" if you added it
-      this.studentId = data.studentId || '';
+      this.amountRequested = data.amountRequested;
+      this.reason = data.reason;
+     
     });
   }
 
   onSubmit() {
-    if (this.nomProjet && this.montant !== null && this.description) {
+    if (this.studentId && this.reason && this.amountRequested !== null && this.status && this.dateSubmitted) {
       const payload: Partial<FinancialAidRequest> = {
-        reason: this.nomProjet,
-        amountRequested: this.montant,
-        studentId: this.studentId
+        reason: this.reason,
+        amountRequested: this.amountRequested,
+        
       };
       this.financeService.update(this.financeId, payload).subscribe({
         next: () => this.router.navigate(['/finance']),
-        error: err => alert('Erreur lors de la mise à jour: ' + err.error?.message || err.statusText)
+        error: err => alert('Erreur lors de la mise à jour: ' + (err.error?.message || err.statusText))
       });
     }
   }

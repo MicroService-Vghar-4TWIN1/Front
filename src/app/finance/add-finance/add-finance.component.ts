@@ -8,24 +8,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-finance.component.css']
 })
 export class AddFinanceComponent {
-  nomProjet = '';
-  montant: number | null = null;
-  description = '';
-  studentId = '';
+  amountRequested: number | null = null;
+  reason: string = '';
 
   constructor(private financeService: FinancialAidService, private router: Router) {}
 
   onSubmit() {
-    if (this.nomProjet && this.montant !== null && this.description) {
+    if (this.amountRequested !== null && this.reason.trim() !== '') {
       const payload: Partial<FinancialAidRequest> = {
-        reason: this.nomProjet,
-        amountRequested: this.montant,
-        studentId: this.studentId,
-        // status, dateSubmitted, and dateReviewed will be set by backend
+        amountRequested: this.amountRequested,
+        reason: this.reason
+        // status, dateSubmitted, and dateReviewed are set on the backend
       };
       this.financeService.add(payload).subscribe({
         next: () => this.router.navigate(['/finance']),
-        error: err => alert('Erreur lors de la soumission: ' + err.error?.message || err.statusText)
+        error: err => alert('Erreur lors de la soumission: ' + (err.error?.message || err.statusText))
       });
     }
   }
