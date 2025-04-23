@@ -1,5 +1,6 @@
+import { KeycloakService } from './keyclock.service';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Contrat } from '../model/Contrat';
 
@@ -9,9 +10,12 @@ import { Contrat } from '../model/Contrat';
 })
 export class ContratService {
 
-  private apiUrl = 'http://192.168.174.129:8090/Contrat'; // URL de l'API Gateway
+  private apiUrl = 'http://localhost:8090/Contrat'; // URL de l'API Gateway
+  private apiUrluser = 'http://localhost:8090/Contrat/keycloak-users';
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private KeycloakService: KeycloakService) {}
+
 
   getContrats(): Observable<any> {
     return this.http.get(`${this.apiUrl}/retrieve-all-contrats`);
@@ -39,4 +43,17 @@ export class ContratService {
     return this.http.get<any[]>(`${this.apiUrl}/retrieve-historique/${contratId}`);
   }
 
+
+  getAllUsers(): Observable<any[]> {
+    const token = this.KeycloakService.getToken();
+    console.log('Token utilisé dans la requête:', token);
+  
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.get<any[]>(`${this.apiUrluser}`, { headers });
+  }
+  
+  
 }

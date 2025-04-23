@@ -23,6 +23,7 @@ const routes: Routes = [
     component: MainLayoutComponent,  // Layout principal avec header et footer
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
       { path: 'notfound', component: NotfoundComponent },
       {path : 'contrats',
         loadChildren: () => import('./contrat/contrat.module').then(m => m.ContratModule),
