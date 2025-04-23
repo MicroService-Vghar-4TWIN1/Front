@@ -8,33 +8,40 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'login',
+    path: 'home',
+    redirectTo: 'home',
     pathMatch: 'full'   // <-- important pour éviter les conflits
   },
-  {
-    path: 'login',
-    component: AuthLayoutComponent,
-    children: [
-      { path: '', component: LoginComponent },  // Page login sans header ni footer
-    ],
-  },
+  
+  
+
+      { path: 'login', component: LoginComponent },  // Page login sans header ni footer
+ 
+ 
   {
     path: '',
     component: MainLayoutComponent,  // Layout principal avec header et footer
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
       { path: 'notfound', component: NotfoundComponent },
       {path : 'contrats',
         loadChildren: () => import('./contrat/contrat.module').then(m => m.ContratModule),
       },
-      { path: 'ressources', loadChildren: () => import('./ressource/ressource.module').then(m => m.RessourceModule) },
+     
       { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
       { path: 'finance', loadChildren: () => import('./finance/finance.module').then(m => m.FinanceModule) },
+      { path: 'formation',loadChildren: () => import('./formation/formation.module').then(m => m.FormationModule)},
+
+    { path: 'ressources', loadChildren: () => import('./ressource/ressource.module').then(m => m.RessourceModule) },
+    { path: 'universite', loadChildren: () => import('./universite/universite.module').then(m => m.UniversiteModule) },
+    { path: 'departement', loadChildren: () => import('./departement/departement.module').then(m => m.DepartementModule) },
+
+
+
 
     ],
-  },
-  { path: '**', redirectTo: 'notfound' },  // Route non trouvée
+  }
 ];
 
 @NgModule({

@@ -1,0 +1,103 @@
+/* Page de détails de la ressource */
+
+/* Carte de détails centrée */
+.details-card {
+  max-width: 600px;  /* Augmente la largeur maximale de la carte */
+  min-height: 450px; /* Hauteur minimale pour éviter que la carte soit trop petite */
+  margin: 50px auto;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Effet au survol de la carte */
+.details-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* En-tête de la carte */
+.details-card .card-header {
+  background-color: #1e2a3a;
+  color: #fff;
+  font-size: 22px;
+  text-align: center;
+  font-weight: bold;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+}
+
+/* Corps de la carte */
+.details-card .card-body {
+  padding: 30px;  /* Augmente le padding pour plus d'espace interne */
+  font-size: 16px;
+  background-color: #fefefe;
+  word-wrap: break-word; /* Permet de couper les mots longs */
+  overflow-wrap: break-word; /* Ajoute une sécurité supplémentaire pour les mots longs */
+}
+
+/* Liste stylisée pour les détails */
+.details-card .list-group-item {
+  border: none;
+  padding: 20px 50px;  /* Augmente le padding des éléments de la liste */
+  font-size: 16px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s ease;
+  word-wrap: break-word; /* Permet de couper les mots longs */
+  overflow-wrap: break-word; /* Ajoute une sécurité supplémentaire pour les mots longs */
+}
+
+/* Changement de couleur au survol des éléments de la liste */
+.details-card .list-group-item:hover {
+  background-color: #f1f1f1;
+}
+
+/* Icônes dans les détails */
+.details-card i {
+  margin-right: 20px;
+  color: #444;
+}
+
+/* Bouton générer le résumé */
+.details-card .btn-outline-info {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.details-card .btn-outline-info:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Affichage du résumé */
+.details-card .summary-container {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  word-wrap: break-word; /* Permet de couper les mots longs */
+  overflow-wrap: break-word; /* Ajoute une sécurité supplémentaire pour les mots longs */
+}
+
+/* Affichage du message de chargement */
+.details-card .loading-container {
+  text-align: center;
+  margin-top: 20px;
+  color: #28a745;
+  font-size: 18px;
+}
+
+/* Footer de la carte */
+.details-card .card-footer {
+  background-color: #f1f1f1;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  text-align: center;
+  padding: 20px;  /* Augmente le padding du footer */
+}

@@ -1,0 +1,64 @@
+<div class="form-container">
+  <div class="form-card">
+    <div class="form-header">
+      <h2><i class="fas fa-plus-circle"></i> Ajouter une formation</h2>
+      <p>Remplissez les détails de la nouvelle formation</p>
+    </div>
+
+    <form [formGroup]="formationForm" (ngSubmit)="onSubmit()" class="form-body">
+      <!-- Nom de la formation -->
+      <div class="form-group">
+        <label for="nomFormation">Nom de la formation</label>
+        <input type="text" id="nomFormation" formControlName="nomFormation" placeholder="Entrez le nom de la formation" class="form-input" required>
+        <div *ngIf="formationForm.get('nomFormation')?.invalid && formationForm.get('nomFormation')?.touched" class="error-message">
+          Le nom de la formation est requis
+        </div>
+      </div>
+
+      <!-- Date de la formation -->
+      <div class="form-group">
+        <label for="dateFormation">Date de la formation</label>
+        <input type="date" id="dateFormation" formControlName="dateFormation" class="form-input" required>
+        <div *ngIf="formationForm.get('dateFormation')?.invalid && formationForm.get('dateFormation')?.touched" class="error-message">
+          La date de la formation est requise
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" rows="5" placeholder="Décrivez la formation" class="form-input" required></textarea>
+        <div *ngIf="formationForm.get('description')?.invalid && formationForm.get('description')?.touched" class="error-message">
+          La description est requise
+        </div>
+      </div>
+
+      <!-- Nombre de places -->
+      <div class="form-group">
+        <label for="nombrePlace">Nombre de places</label>
+        <input type="number" id="nombrePlace" formControlName="nombrePlace" class="form-input" required>
+        <div *ngIf="formationForm.get('nombrePlace')?.invalid && formationForm.get('nombrePlace')?.touched" class="error-message">
+          Le nombre de places est requis
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="prix">Prix de la place</label>
+        <input type="number" id="prix" formControlName="prix" class="form-input" required>
+        <div *ngIf="formationForm.get('prix')?.invalid && formationForm.get('prix')?.touched" class="error-message">
+          Le nombre de places est requis
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <button type="button" (click)="onCancel()" class="cancel-btn">
+          <i class="fas fa-times"></i> Annuler
+        </button>
+        <button type="submit" [disabled]="formationForm.invalid" class="submit-btn">
+          <i class="fas" [ngClass]="{'fa-save': !isSubmitting, 'fa-spinner fa-spin': isSubmitting}"></i> 
+          {{ isSubmitting ? 'Enregistrement...' : 'Enregistrer' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

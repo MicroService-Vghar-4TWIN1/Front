@@ -1,0 +1,107 @@
+/* General styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Form styles */
+  .forms {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .input-box {
+    margin-bottom: 15px;
+    position: relative;
+  }
+  
+  .input-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+  }
+  
+  .input-box input {
+    width: 100%;
+    padding: 12px 15px 12px 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: all 0.3s;
+  }
+  
+  .input-box input:focus {
+    border-color: #4285f4;
+    box-shadow: 0 0 5px rgba(66, 133, 244, 0.3);
+  }
+  
+  .button input[type="submit"],
+  .button button {
+    width: 100%;
+    padding: 12px;
+    background: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .button input[type="submit"]:hover,
+  .button button:hover {
+    background: #3367d6;
+  }
+  
+  .text {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  
+  .text a {
+    color: #4285f4;
+    text-decoration: none;
+  }
+  
+  .text a:hover {
+    text-decoration: underline;
+  }
+  
+  .error-message {
+    color: #d32f2f;
+  }
+  
+  .success-message {
+    color: #388e3c;
+  }
+  
+  /* Loading state */
+  button[disabled] {
+    background: #cccccc !important;
+    cursor: not-allowed;
+  }
+  
+  /* Cover image styles (if you're keeping them) */
+  .cover {
+    position: relative;
+    margin-bottom: 30px;
+  }
+  
+  .cover img {
+    width: 100%;
+    border-radius: 8px;
+  }

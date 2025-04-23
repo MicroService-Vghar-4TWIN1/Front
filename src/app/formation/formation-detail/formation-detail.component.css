@@ -1,0 +1,125 @@
+.formation-details-container {
+  padding: 30px;
+  max-width: 900px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.formation-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.formation-header h2 {
+  font-size: 28px;
+  color: #333;
+}
+
+.formation-id {
+  font-size: 14px;
+  color: #888;
+  margin-top: 5px;
+}
+
+.formation-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.formation-item h4 {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.formation-item p {
+  font-size: 17px;
+  font-weight: 500;
+  color: #222;
+  background-color: #f4f4f4;
+  padding: 10px 15px;
+  border-radius: 6px;
+}
+
+.status-pending {
+  color: #ff9800;
+}
+
+.status-accepted {
+  color: #4caf50;
+}
+
+.status-refused {
+  color: #f44336;
+}
+
+.formation-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+.btn-retour {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+.btn-edit {
+  background-color: #2196f3;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #1976d2;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-retour {
+  background-color: #000000;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
+}
+.btn-retour:hover {
+  background-color: #000000;
+}
+
+@media (max-width: 768px) {
+  .formation-info {
+    grid-template-columns: 1fr;
+  }
+
+  .formation-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

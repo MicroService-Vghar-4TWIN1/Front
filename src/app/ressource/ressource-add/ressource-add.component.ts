@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RessourceService, Type } from '../../service/ressource.service';
+import { RessourceService } from '../../service/ressource.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
   templateUrl: './ressource-add.component.html',
   styleUrls: ['./ressource-add.component.css']
 })
-export class RessourceAddComponent {
+export class RessourceAddComponent implements OnInit {
   ressourceForm: FormGroup;
-  types = Object.values(Type);
-  selectedFile: File | null = null;
+  pdfFile?: File;
+  types: string[] = ['E_Book', 'Cours', 'Article']; // Ajout des types
 
   constructor(
     private fb: FormBuilder,
@@ -26,46 +26,59 @@ export class RessourceAddComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
+    this.ressourceForm = this.fb.group({
+      titre: ['', Validators.required],
+      url: ['', Validators.pattern('https?://.+')],
+      description: ['', Validators.required],
+      type: ['', Validators.required]
+    });
+  }
+
   onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
-    if (file && file.type === 'application/pdf') {
-      this.selectedFile = file;
-    } else {
-      this.selectedFile = null;
-      alert('Veuillez sélectionner un fichier PDF valide.');
+    if (event.target.files.length > 0) {
+      this.pdfFile = event.target.files[0];
     }
   }
 
   onSubmit(): void {
     if (this.ressourceForm.valid) {
-      const ressourceData = this.ressourceForm.value;
       const formData = new FormData();
-
-      // Convertir l'objet ressource en JSON dans un Blob
-      formData.append('ressource', new Blob([JSON.stringify(ressourceData)], {
-        type: 'application/json'
-      }));
-
-      // Ajouter le fichier PDF s'il existe
-      if (this.selectedFile) {
-        formData.append('file', this.selectedFile, this.selectedFile.name);
+      formData.append('titre', this.ressourceForm.get('titre')?.value);
+      formData.append('url', this.ressourceForm.get('url')?.value);
+      formData.append('description', this.ressourceForm.get('description')?.value);
+      
+      // Ensure the type value matches exactly with backend enum (uppercase)
+      const typeValue = this.ressourceForm.get('type')?.value.toUpperCase();
+      formData.append('type', typeValue);
+  
+      if (this.pdfFile) {
+        formData.append('pdfFile', this.pdfFile);
       }
-
-      // ✅ Envoyer le FormData (et non ressourceData simple)
-      this.ressourceService.addRessource(formData).subscribe({
-        next: (response) => {
-          console.log('Ressource ajoutée avec succès:', response);
-          this.router.navigate(['/ressources']);
-        },
-        error: (error) => {
-          console.error('Erreur lors de l\'ajout de la ressource:', error);
-          alert('Une erreur est survenue lors de l\'ajout de la ressource.');
-        }
-      });
+  
+      this.ressourceService.addRessource(formData)
+        .subscribe(
+          response => {
+            console.log('Ressource ajoutée avec succès', response);
+            this.router.navigate(['/ressources']);
+          },
+          error => {
+            console.error('Erreur lors de l\'ajout', error);
+            // Add more detailed error handling
+            if (error.error) {
+              console.error('Server error details:', error.error);
+            }
+          }
+        );
     } else {
       this.markFormGroupTouched(this.ressourceForm);
     }
   }
+  
 
   private markFormGroupTouched(formGroup: FormGroup): void {
     Object.values(formGroup.controls).forEach(control => {

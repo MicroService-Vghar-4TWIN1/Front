@@ -45,3 +45,21 @@
     }
   }
   
+  .social-icons {
+    margin-top: 10px;
+    margin-left: 0; /* Réduit la marge pour aligner à gauche */
+  }
+  
+  .social-icon {
+    color: #f1f1f1;
+    margin-right: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    color: #ff8a00;
+
+  }

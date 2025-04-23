@@ -1,0 +1,120 @@
+/* Container Styling */
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Header */
+h2 {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+/* Add Button */
+button.btn-outline-success {
+  font-weight: 500;
+  background-color: #f0fdf4;
+  color: #065f46;
+  border: 2px solid #10b981;
+  border-radius: 6px;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+button.btn-outline-success:hover {
+  background-color: #10b981;
+  color: white;
+}
+
+/* Card Styling */
+.card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #3b4ce2;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.card-body {
+  padding: 0;
+}
+
+/* Table Styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.table th,
+.table td {
+  padding: 12px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.table th {
+  background-color: #f3f4f6;
+  color: #374151;
+  font-weight: 600;
+}
+
+.table tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Action Buttons */
+.btn {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-warning {
+  background-color: #facc15;
+  color: #333;
+}
+
+.btn-warning:hover {
+  background-color: #eab308;
+}
+
+.btn-danger {
+  background-color: #ef4444;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #dc2626;
+}
+
+/* Empty state alert */
+.alert-info {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* Responsive Table Wrapper */
+.table-responsive {
+  overflow-x: auto;
+}
