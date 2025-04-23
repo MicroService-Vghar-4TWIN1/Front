@@ -30,7 +30,7 @@ const routes: Routes = [
       { path: 'ressources', loadChildren: () => import('./ressource/ressource.module').then(m => m.RessourceModule) },
       { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
       { path: 'finance', loadChildren: () => import('./finance/finance.module').then(m => m.FinanceModule) },
-
+      {path: 'equipe', loadChildren: () => import('./equipe/equipe.module').then(m => m.EquipeModule),}  
     ],
   },
   { path: '**', redirectTo: 'notfound' },  // Route non trouvée

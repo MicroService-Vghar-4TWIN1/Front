@@ -21,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { KeycloakService } from './service/keyclock.service';
 import { HttpTokenInterceptor } from './service/interceptor/http-token.interceptor';
 
+import { GoogleChartsModule } from 'angular-google-charts';
 
 export function kcFactory(kcService: KeycloakService) {
   return () => kcService.init();
@@ -47,9 +48,10 @@ export function kcFactory(kcService: KeycloakService) {
     UniversiteModule,
     RessourceModule,
     FormsModule,
-    
+
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    GoogleChartsModule
 
   ],
   providers: [
