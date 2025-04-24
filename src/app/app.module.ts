@@ -24,6 +24,7 @@ import { HttpTokenInterceptor } from './service/interceptor/http-token.intercept
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { GoogleChartsModule } from 'angular-google-charts';
 
 
 export function kcFactory(kcService: KeycloakService) {
@@ -41,7 +42,7 @@ export function kcFactory(kcService: KeycloakService) {
     MainLayoutComponent,
     LoginComponent
 
-   
+
   ],
   imports: [
     BrowserModule,
@@ -56,15 +57,16 @@ export function kcFactory(kcService: KeycloakService) {
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-   
-  
-   
-   
-   
-    
-   
+
+
+
+
+
+
+
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    GoogleChartsModule
 
   ],
   providers: [

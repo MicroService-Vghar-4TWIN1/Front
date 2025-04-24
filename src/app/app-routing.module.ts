@@ -12,12 +12,12 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'   // <-- important pour éviter les conflits
   },
-  
-  
+
+
 
       { path: 'login', component: LoginComponent },  // Page login sans header ni footer
- 
- 
+
+
   {
     path: '',
     component: MainLayoutComponent,  // Layout principal avec header et footer
@@ -28,7 +28,7 @@ const routes: Routes = [
       {path : 'contrats',
         loadChildren: () => import('./contrat/contrat.module').then(m => m.ContratModule),
       },
-     
+
       { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
       { path: 'finance', loadChildren: () => import('./finance/finance.module').then(m => m.FinanceModule) },
       { path: 'formation',loadChildren: () => import('./formation/formation.module').then(m => m.FormationModule)},
@@ -40,6 +40,7 @@ const routes: Routes = [
 
 
 
+      {path: 'equipe', loadChildren: () => import('./equipe/equipe.module').then(m => m.EquipeModule),}
     ],
   }
 ];
