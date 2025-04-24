@@ -40,6 +40,14 @@ const routes: Routes = [
 
 
 
+    { path: 'ressources', loadChildren: () => import('./ressource/ressource.module').then(m => m.RessourceModule) },
+   
+    { path: 'departement', loadChildren: () => import('./departement/departement.module').then(m => m.DepartementModule) },
+
+
+
+
+      {path: 'equipe', loadChildren: () => import('./equipe/equipe.module').then(m => m.EquipeModule),}
     ],
   }
 ];

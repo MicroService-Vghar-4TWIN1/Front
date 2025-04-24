@@ -1,3 +1,4 @@
+import { KeycloakService } from 'src/app/service/keyclock.service';
 import { Router } from '@angular/router';
 import { ContratService } from '../../service/contrat.service';
 import { Component } from '@angular/core';
@@ -15,16 +16,25 @@ export class AddContratComponent {
     dateFinContrat: '',
     specialite: 'IA',
     archive: false,
-    montantContrat: 0
+    montantContrat: 0,
+    createur: ''
   };
+
+  currentUser: string = '';
 
   specialites = ['IA', 'RESEAUX', 'CLOUD', 'SECURITE'];
   isSubmitting = false;
 
   constructor(
     private contratService: ContratService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private KeycloakService: KeycloakService
+  ) {
+      const decodedToken = this.KeycloakService.getDecodedToken();
+      if (decodedToken) {
+          this.currentUser = decodedToken.preferred_username || decodedToken.name || 'Unknown';
+      }
+  }
 
   save(): void {
     if (this.isSubmitting) return;
@@ -33,6 +43,7 @@ export class AddContratComponent {
     
     const contratToSend: Contrat = {
       ...this.newContrat,
+      createur: this.currentUser,
       dateDebutContrat: new Date(this.newContrat.dateDebutContrat),
       dateFinContrat: new Date(this.newContrat.dateFinContrat)
     };

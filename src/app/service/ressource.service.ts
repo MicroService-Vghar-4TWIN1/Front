@@ -33,17 +33,10 @@ export class RessourceService {
     return this.http.get<Ressource>(`${this.apiUrl}/${id}`);
   }
 
-  addRessource(ressourceData: any, pdfFile?: File): Observable<any> {
-    const formData = new FormData();
-    
-    if (ressourceData.titre) formData.append('titre', ressourceData.titre);
-    if (ressourceData.url) formData.append('url', ressourceData.url);
-    if (ressourceData.description) formData.append('description', ressourceData.description);
-    formData.append('type', ressourceData.type);
-    if (pdfFile) formData.append('pdfFile', pdfFile);
-
+  addRessource(formData: FormData): Observable<any> {
     return this.http.post(this.apiUrl, formData);
   }
+  
 
   
   updateRessource(id: number, ressourceData: any, pdfFile?: File, keepCurrentPdf: boolean = false): Observable<any> {

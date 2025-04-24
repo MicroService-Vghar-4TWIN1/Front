@@ -15,9 +15,11 @@
       </div>
       
       <!-- Add Button -->
-      <button [routerLink]="['/contrats/add']" class="add-button">
-        <i class="fas fa-plus-circle"></i> Nouveau Contrat
-      </button>
+     <!-- Add Button -->
+<button *ngIf="hasRole('admin')" [routerLink]="['/contrats/add']" class="add-button">
+  <i class="fas fa-plus-circle"></i> Nouveau Contrat
+</button>
+
     </div>
   </div>
 
@@ -63,6 +65,12 @@
             <th (click)="sortTable('dateFinContrat')" class="sortable">
               Date Fin <i class="fas fa-sort"></i>
             </th>
+
+
+            <th (click)="sortTable('createur')" class="sortable">
+              Créé par <i class="fas fa-sort"></i>
+          </th>
+
             <th>Spécialité</th>
             <th>Statut</th>
             <th (click)="sortTable('montantContrat')" class="sortable">
@@ -77,7 +85,10 @@
             <td data-label="Nom">{{ contrat.nom }}</td>
             <td data-label="Date Début">{{ contrat.dateDebutContrat | date:'dd/MM/yyyy' }}</td>
             <td data-label="Date Fin">{{ contrat.dateFinContrat | date:'dd/MM/yyyy' }}</td>
+            <td data-label="Créé par">{{ contrat.createur }}</td>
             <td data-label="Spécialité">{{ contrat.specialite }}</td>
+            
+
             <td data-label="Statut">
               <span class="status-badge" [class.archived]="contrat.archive">
                 {{ contrat.archive ? 'Archivé' : 'Actif' }}
@@ -85,24 +96,28 @@
             </td>
             <td data-label="Montant">{{ contrat.montantContrat | currency:'EUR':'symbol':'1.2-2' }}</td>
             <td data-label="Actions" class="actions-cell">
-              <button [routerLink]="['/contrats/update', contrat.idContrat]" 
+              <button *ngIf="hasRole('admin')" 
+                      [routerLink]="['/contrats/update', contrat.idContrat]" 
                       class="action-button edit" 
                       title="Modifier">
                 <i class="fas fa-pencil-alt"></i>
               </button>
-              <button (click)="deleteContrat(contrat.idContrat)" 
+              
+              <button *ngIf="hasRole('admin')" 
+                      (click)="deleteContrat(contrat.idContrat)" 
                       class="action-button delete" 
                       title="Supprimer">
                 <i class="fas fa-trash-alt"></i>
               </button>
-              <!-- Historique Button -->
-             
-               <button [routerLink]="['/contrats/historique', contrat.idContrat]"
+              
+              <button *ngIf="hasRole('admin')" 
+                      [routerLink]="['/contrats/historique', contrat.idContrat]"
                       class="action-button history" 
                       title="Historique">
                 <i class="fas fa-history"></i>
               </button>
             </td>
+            
           </tr>
         </tbody>
       </table>

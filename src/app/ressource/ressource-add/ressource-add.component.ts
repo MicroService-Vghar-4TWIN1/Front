@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class RessourceAddComponent implements OnInit {
   ressourceForm: FormGroup;
   pdfFile?: File;
-  types: string[] = ['E_Book', 'Cours', 'Article']; // Ajout des types
+  types: string[] = ['E_BOOK', 'COURS', 'ARTICLE']; // Ajout des types
 
   constructor(
     private fb: FormBuilder,
@@ -48,32 +48,42 @@ export class RessourceAddComponent implements OnInit {
   onSubmit(): void {
     if (this.ressourceForm.valid) {
       const formData = new FormData();
-      formData.append('titre', this.ressourceForm.get('titre')?.value);
-      formData.append('url', this.ressourceForm.get('url')?.value);
-      formData.append('description', this.ressourceForm.get('description')?.value);
       
-      // Ensure the type value matches exactly with backend enum (uppercase)
-      const typeValue = this.ressourceForm.get('type')?.value.toUpperCase();
+      // Append all fields including null checks
+      formData.append('titre', this.ressourceForm.get('titre')?.value || '');
+      formData.append('url', this.ressourceForm.get('url')?.value || '');
+      formData.append('description', this.ressourceForm.get('description')?.value || '');
+      
+      // Ensure type is properly set
+      const typeValue = this.ressourceForm.get('type')?.value;
+      if (!typeValue) {
+        console.error('Type is required');
+        return;
+      }
       formData.append('type', typeValue);
   
+      // Handle PDF file
       if (this.pdfFile) {
         formData.append('pdfFile', this.pdfFile);
       }
   
-      this.ressourceService.addRessource(formData)
-        .subscribe(
-          response => {
-            console.log('Ressource ajoutée avec succès', response);
-            this.router.navigate(['/ressources']);
-          },
-          error => {
-            console.error('Erreur lors de l\'ajout', error);
-            // Add more detailed error handling
-            if (error.error) {
-              console.error('Server error details:', error.error);
-            }
+      // Debug: Log FormData contents
+      formData.forEach((value, key) => {
+        console.log(key, value);
+      });
+  
+      this.ressourceService.addRessource(formData).subscribe({
+        next: (response) => {
+          console.log('Ressource ajoutée avec succès', response);
+          this.router.navigate(['/ressources']);
+        },
+        error: (error) => {
+          console.error('Erreur lors de l\'ajout', error);
+          if (error.error) {
+            console.error('Server error details:', error.error);
           }
-        );
+        }
+      });
     } else {
       this.markFormGroupTouched(this.ressourceForm);
     }

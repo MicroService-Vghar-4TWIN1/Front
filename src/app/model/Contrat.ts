@@ -6,4 +6,5 @@ export class Contrat {
     specialite: string = '';
     archive: boolean = false;
     montantContrat: number = 0;
+    createur?: string = '';
 }

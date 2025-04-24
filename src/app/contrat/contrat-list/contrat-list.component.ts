@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { ContratService } from './../../service/contrat.service';
 import { Component, OnInit } from '@angular/core';
+import { KeycloakService } from 'src/app/service/keyclock.service';
 
 @Component({
   selector: 'app-contrat-list',
@@ -12,12 +13,31 @@ export class ContratListComponent implements OnInit {
   filteredContrats: any[] = [];
   activeContratsCount: number = 0;
   archivedContratsCount: number = 0;
+  roles: string[] = [];
 
-  constructor(private contratService: ContratService, private router: Router) { }
+
+  constructor(private contratService: ContratService, private router: Router , private KeycloakService: KeycloakService) { }
+
+
 
   ngOnInit(): void {
     this.loadContrats();
+    this.getrole();
   }
+
+  getrole(): void {
+    this.roles = this.KeycloakService.getRoles();
+  }
+
+  hasRole(role: string): boolean {
+    return this.roles.includes(role);
+  }
+
+
+  
+  
+  
+    
 
   loadContrats(): void {
     this.contratService.getContrats().subscribe((data) => {

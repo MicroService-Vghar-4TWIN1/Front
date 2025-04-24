@@ -21,8 +21,14 @@ export class ContratService {
     return this.http.get(`${this.apiUrl}/retrieve-all-contrats`);
   }
   addContrat(contrat: Contrat): Observable<Contrat> {
-    return this.http.post<Contrat>(`${this.apiUrl}/add-contrat`, contrat);
-  }
+    const token = this.KeycloakService.getToken();
+    const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    });
+    
+    return this.http.post<Contrat>(`${this.apiUrl}/add-contrat`, contrat, { headers });
+}
 
 
   getContratById(id: number): Observable<Contrat> {

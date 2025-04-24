@@ -24,11 +24,10 @@ import { HttpTokenInterceptor } from './service/interceptor/http-token.intercept
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { GoogleChartsModule } from 'angular-google-charts';
 
 
-export function kcFactory(kcService: KeycloakService) {
-  return () => kcService.init();
-}
+
 
 @NgModule({
   declarations: [
@@ -64,7 +63,8 @@ export function kcFactory(kcService: KeycloakService) {
     
    
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    GoogleChartsModule
 
   ],
   providers: [
