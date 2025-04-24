@@ -5,20 +5,47 @@
     <nav>
       <ul>
         <li><a [routerLink]="['/home']" class="btn btn-primary">Accueil</a></li>
-        <li><a [routerLink]="['/contrats/liste']" class="btn btn-warning">Liste des Contrats</a></li>
+
+     
+
+        <li><a [routerLink]="['/contrats/liste']" class="btn btn-warning">Contart</a></li>
         <li><a [routerLink]="['/user/profile' ]" class="btn btn-primary">Pofile </a> </li>
-        <li><a [routerLink]="['/user/listStudent' ]" class="btn btn-primary">Liste des étudiants </a> </li>
         <li><a [routerLink]="['/Equipe' ]" class="btn btn-primary">Equipe </a></li>
         <li><a [routerLink]="['/formation' ]" class="btn btn-primary">Formation </a></li>
-        <li><a [routerLink]="['/contrats' ]" class="btn btn-primary">Contart </a> </li>
-        <li><a [routerLink]="['/equipe/list' ]" class="btn btn-primary">Liste des Équipes</a></li>
-        <li><a [routerLink]="['/Universite' ]" class="btn btn-primary">Universite </a></li>
+
+
+
+        <li *ngIf="hasRole('admin') ">
+          <a [routerLink]="['Universite']" class="btn btn-primary">Universite</a>
+        </li>
+
+
+        <li *ngIf="hasRole('admin') ">
+          <a [routerLink]="['departement']" class="btn btn-primary">departement</a>
+        </li>
+
         <li><a [routerLink]="['/ressources' ]" class="btn btn-primary">Ressource </a></li>
-        <li><a [routerLink]="['/finance' ]" class="btn btn-primary">Aide financière </a></li>
-         <li><a [routerLink]="['/departement' ]" class="btn btn-primary">Departement </a></li>
-         <li><a [routerLink]="['/universite' ]" class="btn btn-primary">université</a></li>
-        <li><a [routerLink]="['/finance/add' ]" class="btn btn-primary">add finance (boutton dans un projet) </a></li>
-        <li><a [routerLink]="['login' ]" class="btn btn-primary">login </a></li>
-        <li><a [routerLink]="['user/listeusers' ]" class="btn btn-primary">liste des users </a></li>
+
+
+
+        <li *ngIf="hasRole('admin')">
+          <a [routerLink]="['/finance']" class="btn btn-primary">Demandes</a>
+        </li>
+
+       
+        
+        <li><a [routerLink]="['/finance/add' ]" class="btn btn-primary">add finance </a></li>
+      
+
+
+
+        <li>
+          <a href="#" (click)="logout()" class="btn btn-outline-danger">
+            <i class="fas fa-sign-out-alt"></i> Déconnexion
+          </a>
+        </li>
+        
+        
+      
       </ul>
     </nav>

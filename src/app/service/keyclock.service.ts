@@ -128,6 +128,16 @@ export class KeycloakService {
   getToken(): string | null {
     return this.keycloakInstance.token || null;
   }
+
+
+  getRoles(): string[] {
+    const decodedToken = this.getDecodedToken();
+    if (decodedToken && decodedToken.realm_access && decodedToken.realm_access.roles) {
+      return decodedToken.realm_access.roles;
+    }
+    return [];
+  }
+  
   
 }
 

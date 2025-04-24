@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { KeycloakService } from './keyclock.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthService {
   private adminTokenUrl = 'http://localhost:8092/realms/master/protocol/openid-connect/token';
   private createUserUrl = 'http://localhost:8092/admin/realms/projet/users';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router ,private keycloakService: KeycloakService) {}
 
   login(username: string, password: string) {
     const body = new HttpParams()
@@ -90,6 +91,9 @@ console.log('Sending login request', body.toString());
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+
+
+
 
 
   

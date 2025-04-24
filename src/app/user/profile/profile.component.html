@@ -1,25 +1,25 @@
-<div *ngIf="loading">
-    <div class="loading-spinner">
-      <p>Loading user information...</p>
-    </div>
+<div class="profile-container" *ngIf="!loading">
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
   </div>
-  
-  
-  
-  <div *ngIf="hasUserInfo()" class="profile-container">
-    <h2>Profile Information</h2>
-    <div class="profile-info">
-      <p><strong>Username:</strong> {{ userInfo?.preferred_username }}</p>
-      <p><strong>Name:</strong> {{ userInfo?.name }}</p>
-      <p><strong>Email:</strong> {{ userInfo?.email }}</p>
-      <p><strong>Email Verified:</strong> {{ userInfo?.email_verified ? 'Yes' : 'No' }}</p>
-      <p><strong>User ID:</strong> {{ userInfo?.sub }}</p>
+
+  <div *ngIf="hasUserInfo()" class="profile-card">
+    <h2><i class="fas fa-user-circle"></i> Mon Profil</h2>
+    <div class="profile-details">
+      <p><i class="fas fa-user"></i> <strong>Nom d'utilisateur:</strong> {{ userInfo?.preferred_username }}</p>
+      <p><i class="fas fa-envelope"></i> <strong>Email:</strong> {{ userInfo?.email }}</p>
+      <p><i class="fas fa-id-badge"></i> <strong>Nom complet:</strong> {{ userInfo?.name }}</p>
     </div>
-  
-    <div *ngIf="userInfo?.realm_access?.roles?.length" class="roles-section">
-      <h3>Roles</h3>
+
+    <div class="roles-section">
+      <h3><i class="fas fa-user-tag"></i> Rôles</h3>
       <ul>
         <li *ngFor="let role of userInfo?.realm_access?.roles">{{ role }}</li>
       </ul>
     </div>
   </div>
+</div>
+
+<div *ngIf="loading" class="loading-spinner">
+  <i class="fas fa-spinner fa-spin"></i> Chargement du profil...
+</div>
