@@ -1,38 +1,36 @@
-<body>
-    <div class="container">
-        <h2>Demandes d'Aide Financière</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Montant Demandé</th>
-                    <th>Raison</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Dupont</td>
-                    <td>Jean</td>
-                    <td>1000€</td>
-                    <td>Frais de scolarité</td>
-                    <td>
-                        <button class="accept">Accepter</button>
-                        <button class="reject">Refuser</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Martin</td>
-                    <td>Claire</td>
-                    <td>800€</td>
-                    <td>Matériel informatique</td>
-                    <td>
-                        <button class="accept">Accepter</button>
-                        <button class="reject">Refuser</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</body>
+<div class="container">
+    <h2>Demandes d'Aide Financière</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Montant Demandé</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Date Soumise</th>
+                <th>Date Revue</th> <!-- NEW COLUMN -->
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let request of requests">
+                <td>{{ request.amountRequested }}€</td>
+                <td>{{ request.reason }}</td>
+                <td>{{ request.status }}</td>
+                <td>{{ request.dateSubmitted | date:'short' }}</td>
+                <td>{{ request.dateReviewed ? (request.dateReviewed | date:'short') : 'N/A' }}</td> <!-- NEW CELL -->
+                <td>
+                    <div *ngIf="request.status === 'pending'">
+                        <button class="accept" (click)="accept(request._id!)"
+                            >Accepter</button>
+                        <button class="reject" (click)="reject(request._id!)"
+                            >Refuser</button>
+                    </div>
+                    <button (click)="edit(request._id!)">Modifier</button>
+                    <button (click)="delete(request._id!)">Supprimer</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="submit-btn" routerLink="/finance/add">Ajouter une demande</button>
+</div>
+<br/><br/><br/><br/><br/>
