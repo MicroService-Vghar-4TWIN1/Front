@@ -6,7 +6,18 @@
 
         <label for="reason">raison</label>
         <textarea id="reason" [(ngModel)]="reason" name="reason" rows="4" required></textarea>
-
+        <label for="department">Département</label>
+      <select
+        id="department"
+        name="departmentId"
+        [(ngModel)]="departmentId"
+        required
+      >
+        <option value="" disabled selected>-- Sélectionnez un département --</option>
+        <option *ngFor="let dept of departments" [value]="dept.idDepart">
+          {{ dept.nomDepart }}
+        </option>
+      </select>
         <button type="submit" class="submit-btn" [disabled]="!financeForm.form.valid">Soumettre la demande</button>
     </form>
 </div>

@@ -12,6 +12,8 @@ export interface FinancialAidRequest {
   status?: 'pending' | 'approved' | 'rejected';
   dateSubmitted?: string;
   dateReviewed?: string;
+  departmentId?: number;
+
 }
 
 @Injectable({
@@ -30,7 +32,9 @@ export class FinancialAidService {
       'Content-Type': 'application/json'
     });
   }
-
+  getDepartments() {
+    return this.http.get<any[]>('http://localhost:8090/finance/departments');
+  }
 
   getAll(): Observable<FinancialAidRequest[]> {
     return this.http.get<FinancialAidRequest[]>(this.baseUrl, { headers: this.getHeaders() });
