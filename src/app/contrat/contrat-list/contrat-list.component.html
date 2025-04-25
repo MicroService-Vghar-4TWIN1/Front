@@ -45,7 +45,7 @@
       <i class="fas fa-folder-open"></i>
       <h3>Aucun contrat disponible</h3>
       <p>Commencez par ajouter un nouveau contrat</p>
-      <button [routerLink]="['/contrats/add']" class="empty-state-button">
+      <button *ngIf="hasRole('admin')" [routerLink]="['/contrats/add']" class="empty-state-button">
         <i class="fas fa-plus"></i> Ajouter un contrat
       </button>
     </div>

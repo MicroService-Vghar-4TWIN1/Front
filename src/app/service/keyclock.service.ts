@@ -140,6 +140,8 @@ export class KeycloakService {
     return [];
   }
 
-  
+  updateToken(minValidity: number): Promise<boolean> {
+    return this.keycloakInstance.updateToken(minValidity);
+  }
 }
 
