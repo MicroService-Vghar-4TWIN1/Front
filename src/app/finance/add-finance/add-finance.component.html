@@ -1,13 +1,42 @@
 <div class="container">
     <h2>Ajouter une Aide Financière</h2>
     <form (ngSubmit)="onSubmit()" #financeForm="ngForm">
-        <label for="amountRequested">Montant demandé (€)</label>
-        <input type="number" id="amountRequested" [(ngModel)]="amountRequested" name="amountRequested" required>
-
-        <label for="reason">raison</label>
-        <textarea id="reason" [(ngModel)]="reason" name="reason" rows="4" required></textarea>
-
-        <button type="submit" class="submit-btn" [disabled]="!financeForm.form.valid">Soumettre la demande</button>
+  
+      <label for="amountRequested">Montant demandé (€)</label>
+      <input
+        type="number"
+        id="amountRequested"
+        [(ngModel)]="amountRequested"
+        name="amountRequested"
+        required
+      />
+  
+      <label for="reason">Raison</label>
+      <textarea
+        id="reason"
+        [(ngModel)]="reason"
+        name="reason"
+        rows="4"
+        required
+      ></textarea>
+  
+      <label for="department">Département</label>
+      <select
+        id="department"
+        name="departmentId"
+        [(ngModel)]="departmentId"
+        required
+      >
+        <option value="" disabled selected>-- Sélectionnez un département --</option>
+        <option *ngFor="let dept of departments" [value]="dept.idDepart">
+          {{ dept.nomDepart }}
+        </option>
+      </select>
+  
+      <button type="submit" class="submit-btn" [disabled]="!financeForm.form.valid">
+        Soumettre la demande
+      </button>
     </form>
-</div>
-<br/><br/><br/><br/><br/>
+  </div>
+  <br/><br/><br/><br/><br/><br/>
+  
