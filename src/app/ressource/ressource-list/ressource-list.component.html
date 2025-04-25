@@ -27,6 +27,7 @@
             <th scope="col">PDF</th>
             <th scope="col">Description</th>
             <th scope="col">Type</th>
+            <th scope="col">Contrat</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -37,6 +38,12 @@
             <td>{{ressource.pdf}}</td>
             <td>{{ressource.description}}</td>
             <td>{{ressource.type}}</td>
+            <td>
+              <span class="badge bg-secondary" *ngIf="!ressource.idContrat">N/A</span>
+              <span class="badge bg-info" *ngIf="ressource.idContrat">
+                {{ressource.contratNom}}
+              </span>
+            </td>
             <td>
               <button [routerLink]="['detail', ressource.idRessource]" class="btn btn-info btn-sm">
                 <i class="fas fa-info-circle"></i>

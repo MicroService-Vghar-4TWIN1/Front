@@ -30,18 +30,18 @@
           </ul>
   
           <!-- Bouton pour générer le résumé -->
-          <div class="text-center mt-4">
+          <!--  <div class="text-center mt-4"> -->
             <!-- Vérifie si la ressource est disponible avant d'afficher le bouton -->
-            <button *ngIf="ressource" (click)="getSummary()" class="btn btn-outline-info">
+            <!-- <button *ngIf="ressource" (click)="getSummary()" class="btn btn-outline-info">
               <i class="fas fa-file-alt"></i> Générer le résumé
             </button>
-          </div>
+          </div> --> 
   
           <!-- Affichage du résumé si disponible -->
-          <div *ngIf="summary" class="mt-3 p-3 bg-light border rounded">
+          <!-- <div *ngIf="summary" class="mt-3 p-3 bg-light border rounded">
             <h4>Résumé du PDF :</h4>
             <p>{{ summary }}</p>
-          </div>
+          </div> -->
   
           <!-- Affichage du message de chargement pendant l'attente -->
           <div *ngIf="loading" class="text-center mt-3">

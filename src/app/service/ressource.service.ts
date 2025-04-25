@@ -9,12 +9,13 @@ export enum Type {
 }
 
 export interface Ressource {
-  idRessource?: number;
   titre: string;
   url: string;
   pdf: string;
   description: string;
   type: Type;
+  idRessource?: number;
+  idContrat?: number; 
 }
 
 @Injectable({
@@ -33,27 +34,23 @@ export class RessourceService {
     return this.http.get<Ressource>(`${this.apiUrl}/${id}`);
   }
 
-  addRessource(formData: FormData): Observable<any> {
-    return this.http.post(this.apiUrl, formData);
+  addRessource(ressource: Ressource): Observable<Ressource> {
+    return this.http.post<Ressource>(this.apiUrl, ressource);
   }
-  
 
-  
-  updateRessource(id: number, ressourceData: any, pdfFile?: File, keepCurrentPdf: boolean = false): Observable<any> {
-    const formData = new FormData();
-    
-    if (ressourceData.titre) formData.append('titre', ressourceData.titre);
-    if (ressourceData.url) formData.append('url', ressourceData.url);
-    if (ressourceData.description) formData.append('description', ressourceData.description);
-    formData.append('type', ressourceData.type);
-    formData.append('currentPdf', keepCurrentPdf ? 'true' : 'false');
-    if (pdfFile) formData.append('pdfFile', pdfFile);
-  
-    return this.http.put(`${this.apiUrl}/${id}`, formData);
+  updateRessource(ressource: Ressource): Observable<Ressource> {
+    return this.http.put<Ressource>(this.apiUrl, ressource);
   }
   
   
+  getContratById(idContrat: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/contrat/${idContrat}`);
+  }
 
+  getAllContrats(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/contrats`);
+  }
+  
 
   deleteRessource(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
@@ -63,9 +60,9 @@ export class RessourceService {
     return this.http.get<Map<string, number>>(`${this.apiUrl}/stats`);
   }
 
-  getSummary(id: number): Observable<string> {
-    return this.http.get(`${this.apiUrl}/${id}/summary`, { responseType: 'text' });
-  }
+  // getSummary(id: number): Observable<string> {
+  //   return this.http.get(`${this.apiUrl}/${id}/summary`, { responseType: 'text' });
+  // }
   
   
 }

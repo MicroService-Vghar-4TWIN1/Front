@@ -46,6 +46,15 @@
           Le type est requis
         </div>
       </div>
+      <div class="nice-form-group">
+        <label for="idContrat">Contrat associé</label>
+        <select id="idContrat" formControlName="idContrat">
+          <option value="">Sélectionnez un contrat</option>
+          <option *ngFor="let contrat of contrats" [value]="contrat.idContrat">
+            {{ contrat.nom }}
+          </option>
+        </select>
+      </div>
       
       <div class="nice-form-group" style="display: flex; gap: 15px; justify-content: flex-end; margin-top: 20px;">
         <button type="button" (click)="cancel()" 
@@ -58,6 +67,5 @@
         </button>
       </div>
     </form>
-    <br><br><br>
   </div>
 </div>

@@ -2,7 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { RessourceService, Type, Ressource } from '../../service/ressource.service';
 import { Router } from '@angular/router';
 
-declare var google: any;  // Déclare google pour éviter les erreurs d'importation
+declare var google: any;
+
+// Interface étendue pour inclure les propriétés nécessaires
+interface RessourceWithContrat extends Ressource {
+  idContrat?: number;
+  contratNom?: string;
+}
 
 @Component({
   selector: 'app-ressource-list',
@@ -10,19 +16,11 @@ declare var google: any;  // Déclare google pour éviter les erreurs d'importat
   styleUrls: ['./ressource-list.component.css']
 })
 export class RessourceListComponent implements OnInit {
-  ressources: Ressource[] = [];
+  ressources: RessourceWithContrat[] = [];
   formVisible: boolean = false;
   editMode: boolean = false;
   types = Object.values(Type);
   stats: Map<string, number> = new Map();
-
-  currentRessource: Ressource = {
-    titre: '',
-    url: '',
-    pdf: '',
-    description: '',
-    type: Type.Cours
-  };
 
   constructor(private ressourceService: RessourceService, private router: Router) {}
 
@@ -33,7 +31,13 @@ export class RessourceListComponent implements OnInit {
 
   loadRessources() {
     this.ressourceService.getRessources().subscribe({
-      next: (data) => this.ressources = data,
+      next: (data) => {
+        this.ressources = data.map(ressource => ({
+          ...ressource,
+          idContrat: ressource.idContrat, // Assure la présence de idContrat
+          contratNom: ressource.idContrat ? `Contrat-${ressource.idContrat}` : 'N/A'
+        }));
+      },
       error: (err) => console.error('Erreur lors du chargement des ressources', err)
     });
   }
@@ -42,7 +46,7 @@ export class RessourceListComponent implements OnInit {
     this.ressourceService.getStats().subscribe({
       next: (data) => {
         this.stats = new Map(Object.entries(data));
-        this.drawChart();  // Dessiner le graphique après avoir chargé les stats
+        this.drawChart();
       },
       error: (err) => console.error('Erreur lors du chargement des statistiques', err)
     });
@@ -53,7 +57,7 @@ export class RessourceListComponent implements OnInit {
       this.ressourceService.deleteRessource(id).subscribe({
         next: () => {
           this.ressources = this.ressources.filter(r => r.idRessource !== id);
-          this.loadStats();  // Recharge les stats après la suppression
+          this.loadStats();
         },
         error: (err) => console.error('Erreur lors de la suppression de la ressource', err)
       });
@@ -65,38 +69,35 @@ export class RessourceListComponent implements OnInit {
       console.error('Google Charts not loaded');
       return;
     }
-  
+
     google.charts.load('current', { packages: ['corechart'] });
     google.charts.setOnLoadCallback(() => {
-      // Filtrer les types avec un count > 0
       const filteredStats = new Map<string, number>();
       this.stats.forEach((value, key) => {
         if (value > 0) {
           filteredStats.set(key, value);
         }
       });
-  
-      // Récupérer l'élément du graphique avec vérification de nullité
+
       const chartElement = document.getElementById('piechart_3d');
       if (!chartElement) {
         console.error('Element piechart_3d not found');
         return;
       }
-  
-      // Si aucune donnée, ne pas afficher le graphique
+
       if (filteredStats.size === 0) {
         chartElement.innerHTML = 
           '<div class="alert alert-info">Aucune donnée statistique disponible</div>';
         return;
       }
-  
+
       const dataArray: Array<[string, string | number]> = [['Type', 'Nombre']];
       filteredStats.forEach((value, key) => {
-        dataArray.push([key, value]); // Google Charts accepte number pour les valeurs
+        dataArray.push([key, value]);
       });
-  
+
       const data = google.visualization.arrayToDataTable(dataArray);
-  
+
       const options = {
         title: 'Répartition des Ressources par Type',
         titleTextStyle: {
@@ -139,7 +140,7 @@ export class RessourceListComponent implements OnInit {
           startup: true
         }
       };
-  
+
       try {
         const chart = new google.visualization.PieChart(chartElement);
         chart.draw(data, options);
@@ -150,8 +151,7 @@ export class RessourceListComponent implements OnInit {
       }
     });
   }
-  
-  // Met en valeur la plus grande portion
+
   private createSliceSelection(stats: Map<string, number>): { [key: number]: { offset: number } } {
     const slices: { [key: number]: { offset: number } } = {};
     let maxValue = 0;
@@ -165,7 +165,7 @@ export class RessourceListComponent implements OnInit {
       }
       currentIndex++;
     });
-  
+
     slices[maxIndex] = { offset: 0.1 };
     return slices;
   }

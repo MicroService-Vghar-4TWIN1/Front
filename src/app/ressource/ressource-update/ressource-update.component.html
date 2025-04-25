@@ -1,8 +1,8 @@
 <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-  <h2 class="text-center mb-4">Modifier la ressource</h2>
+  <h2 class="text-center mb-4">Ajouter une ressource</h2>
 
   <div class="nice-form-group">
-    <form [formGroup]="ressourceForm" (ngSubmit)="submitForm()">
+    <form [formGroup]="ressourceForm" (ngSubmit)="onSubmit()">
       <div class="nice-form-group">
         <label for="titre">Titre</label>
         <input type="text" id="titre" formControlName="titre" placeholder="Entrez le titre de la ressource" required>
@@ -21,27 +21,8 @@
         </div>
       </div>
       
-      <div class="nice-form-group" *ngIf="ressource.pdf">
-        <label>Fichier PDF actuel</label>
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-          <a [href]="currentPdfUrl" target="_blank" style="color: #0066cc; text-decoration: underline;">
-            {{ressource.pdf.split('-').slice(1).join('-')}}
-          </a>
-          <button type="button" (click)="removeCurrentPdf()" 
-                  style="background: none; border: none; color: #ff0000; cursor: pointer; font-size: 0.9em;">
-            Supprimer
-          </button>
-        </div>
-        <div *ngIf="!showNewPdfField">
-          <button type="button" (click)="showNewPdfField = true"
-                  style="padding: 8px 15px; background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;">
-            Remplacer le fichier
-          </button>
-        </div>
-      </div>
-      
-      <div class="nice-form-group" *ngIf="showNewPdfField || !ressource.pdf">
-        <label for="pdf">Nouveau fichier PDF</label>
+      <div class="nice-form-group">
+        <label for="pdf">Fichier PDF</label>
         <input type="file" id="pdf" (change)="onFileSelected($event)" accept=".pdf">
       </div>
       
@@ -56,16 +37,24 @@
       
       <div class="nice-form-group">
         <label for="type">Type de ressource</label>
-        <select id="type" formControlName="type" required>
+        <select id="type" formControlName="type" >
           <option value="">Sélectionnez un type</option>
-          <option *ngFor="let type of types" [value]="type" [selected]="type === ressource.type">
-            {{type}}
-          </option>
+          <option *ngFor="let type of types" [value]="type">{{type}}</option>
         </select>
-        <div *ngIf="ressourceForm.get('type')?.invalid && ressourceForm.get('type')?.touched" 
+        <!-- <div *ngIf="ressourceForm.get('type')?.invalid && ressourceForm.get('type')?.touched" 
              class="error-message">
           Le type est requis
-        </div>
+        </div> -->
+      </div>
+
+      <div class="nice-form-group">
+        <label for="idContrat">Contrat associé</label>
+        <select id="idContrat" formControlName="idContrat">
+          <option value="">Sélectionnez un contrat</option>
+          <option *ngFor="let contrat of contrats" [value]="contrat.idContrat">
+            {{ contrat.nom }}
+          </option>
+        </select>
       </div>
       
       <div class="nice-form-group" style="display: flex; gap: 15px; justify-content: flex-end; margin-top: 20px;">
@@ -75,7 +64,7 @@
         </button>
         <button type="submit" [disabled]="ressourceForm.invalid"
                 style="padding: 12px 30px; background: #03840b; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 1.05em; cursor: pointer; transition: background 0.3s;">
-          Enregistrer les modifications
+          Enregistrer
         </button>
       </div>
     </form>

@@ -27,17 +27,17 @@ export class RessourceDetailComponent implements OnInit {
   }
 
   // Méthode pour obtenir le résumé de la ressource
-  getSummary() {
-    this.loading = true; // Indiquer que la demande est en cours
-    this.ressourceService.getSummary(this.id).subscribe({
-      next: (res) => {
-        this.summary = res; // Mettre à jour le résumé avec la réponse
-        this.loading = false; // Fin du chargement
-      },
-      error: (err) => {
-        this.summary = 'Erreur lors du résumé.'; // En cas d'erreur
-        this.loading = false; // Fin du chargement
-      }
-    });
-  }
+  // getSummary() {
+  //   this.loading = true; // Indiquer que la demande est en cours
+  //   this.ressourceService.getSummary(this.id).subscribe({
+  //     next: (res) => {
+  //       this.summary = res; // Mettre à jour le résumé avec la réponse
+  //       this.loading = false; // Fin du chargement
+  //     },
+  //     error: (err) => {
+  //       this.summary = 'Erreur lors du résumé.'; // En cas d'erreur
+  //       this.loading = false; // Fin du chargement
+  //     }
+  //   });
+  // }
 }

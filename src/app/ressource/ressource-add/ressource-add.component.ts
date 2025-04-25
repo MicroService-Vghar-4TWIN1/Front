@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RessourceService } from '../../service/ressource.service';
+import { RessourceService, Type } from '../../service/ressource.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,10 +8,11 @@ import { Router } from '@angular/router';
   templateUrl: './ressource-add.component.html',
   styleUrls: ['./ressource-add.component.css']
 })
-export class RessourceAddComponent implements OnInit {
+export class RessourceAddComponent implements OnInit{
   ressourceForm: FormGroup;
-  pdfFile?: File;
-  types: string[] = ['E_BOOK', 'COURS', 'ARTICLE']; // Ajout des types
+  types = Object.values(Type);
+  selectedFile: File | null = null;
+  contrats: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -21,74 +22,66 @@ export class RessourceAddComponent implements OnInit {
     this.ressourceForm = this.fb.group({
       titre: ['', Validators.required],
       url: ['', Validators.pattern('https?://.+')],
+      pdf: [''],
       description: ['', Validators.required],
-      type: ['', Validators.required]
+      type: ['', Validators.required],
+      idContrat: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.initializeForm();
-  }
-
-  initializeForm(): void {
-    this.ressourceForm = this.fb.group({
-      titre: ['', Validators.required],
-      url: ['', Validators.pattern('https?://.+')],
-      description: ['', Validators.required],
-      type: ['', Validators.required]
+    this.ressourceService.getAllContrats().subscribe({
+      next: (data) => {
+        this.contrats = data;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des contrats', err);
+      }
     });
   }
 
   onFileSelected(event: any): void {
-    if (event.target.files.length > 0) {
-      this.pdfFile = event.target.files[0];
+    const file: File = event.target.files[0];
+    if (file && file.type === 'application/pdf') {
+      this.selectedFile = file;
+    } else {
+      this.selectedFile = null;
+      alert('Veuillez sélectionner un fichier PDF valide.');
     }
   }
 
   onSubmit(): void {
     if (this.ressourceForm.valid) {
       const formData = new FormData();
-      
-      // Append all fields including null checks
-      formData.append('titre', this.ressourceForm.get('titre')?.value || '');
-      formData.append('url', this.ressourceForm.get('url')?.value || '');
-      formData.append('description', this.ressourceForm.get('description')?.value || '');
-      
-      // Ensure type is properly set
-      const typeValue = this.ressourceForm.get('type')?.value;
-      if (!typeValue) {
-        console.error('Type is required');
-        return;
+      const ressourceData = this.ressourceForm.value;
+
+      // Ajouter les champs du formulaire
+      formData.append('titre', ressourceData.titre);
+      formData.append('url', ressourceData.url);
+      formData.append('description', ressourceData.description);
+      formData.append('type', ressourceData.type);
+      formData.append('idContrat', ressourceData.idContrat);
+
+      // Ajouter le fichier PDF s'il existe
+      if (this.selectedFile) {
+        formData.append('pdf', this.selectedFile, this.selectedFile.name);
       }
-      formData.append('type', typeValue);
-  
-      // Handle PDF file
-      if (this.pdfFile) {
-        formData.append('pdfFile', this.pdfFile);
-      }
-  
-      // Debug: Log FormData contents
-      formData.forEach((value, key) => {
-        console.log(key, value);
-      });
-  
-      this.ressourceService.addRessource(formData).subscribe({
+
+      this.ressourceService.addRessource(ressourceData).subscribe({
         next: (response) => {
-          console.log('Ressource ajoutée avec succès', response);
-          this.router.navigate(['/ressources']);
+          console.log('Ressource ajoutée avec succès:', response);
+          this.router.navigate(['/ressources']); // Redirection après succès
         },
         error: (error) => {
-          console.error('Erreur lors de l\'ajout', error);
-          if (error.error) {
-            console.error('Server error details:', error.error);
-          }
+          console.error('Erreur lors de l\'ajout de la ressource:', error);
+          alert('Une erreur est survenue lors de l\'ajout de la ressource.');
         }
       });
     } else {
+      // Marquer tous les champs comme touchés pour afficher les erreurs
       this.markFormGroupTouched(this.ressourceForm);
     }
   }
-  
 
   private markFormGroupTouched(formGroup: FormGroup): void {
     Object.values(formGroup.controls).forEach(control => {
@@ -98,7 +91,6 @@ export class RessourceAddComponent implements OnInit {
       }
     });
   }
-
   cancel(): void {
     this.router.navigate(['/ressources']);
   }
