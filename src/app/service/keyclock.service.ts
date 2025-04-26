@@ -96,6 +96,7 @@ export class KeycloakService {
 
   login(): Promise<void> {
     return this.keycloakInstance.login();
+
   }
 
   logout(): Promise<void> {
